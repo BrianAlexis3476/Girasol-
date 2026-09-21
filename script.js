@@ -1,14 +1,12 @@
-/* =====================================================
+/* =========================================
    CONFIGURACIÓN
-===================================================== */
+========================================= */
 
 const CONFIG = {
 
-    maxPetals: 18,
+    maxPetals: 16,
 
-    maxWords: 6,
-
-    maxSparks: 20,
+    maxWords: 5,
 
     wordInterval: 1800,
 
@@ -17,52 +15,91 @@ const CONFIG = {
 };
 
 
-/* =====================================================
+/* =========================================
    ELEMENTOS
-===================================================== */
+========================================= */
 
 const welcomeScreen =
-    document.getElementById("welcomeScreen");
+    document.getElementById(
+        "welcomeScreen"
+    );
+
 
 const startButton =
-    document.getElementById("startButton");
+    document.getElementById(
+        "startButton"
+    );
+
 
 const musicButton =
-    document.getElementById("musicButton");
+    document.getElementById(
+        "musicButton"
+    );
+
 
 const music =
-    document.getElementById("backgroundMusic");
+    document.getElementById(
+        "backgroundMusic"
+    );
+
 
 const sunflower =
-    document.getElementById("sunflower");
+    document.getElementById(
+        "sunflower"
+    );
+
+
+const touchHint =
+    document.getElementById(
+        "touchHint"
+    );
+
 
 const letterModal =
-    document.getElementById("letterModal");
+    document.getElementById(
+        "letterModal"
+    );
+
 
 const closeModal =
-    document.getElementById("closeModal");
+    document.getElementById(
+        "closeModal"
+    );
+
 
 const petalsContainer =
-    document.getElementById("petalsContainer");
+    document.getElementById(
+        "petalsContainer"
+    );
+
 
 const wordsContainer =
-    document.getElementById("wordsContainer");
+    document.getElementById(
+        "wordsContainer"
+    );
+
 
 const sparksContainer =
-    document.getElementById("sparksContainer");
+    document.getElementById(
+        "sparksContainer"
+    );
+
 
 const canvas =
-    document.getElementById("sparksCanvas");
+    document.getElementById(
+        "sparksCanvas"
+    );
+
 
 const ctx =
     canvas.getContext("2d");
 
 
-/* =====================================================
-   PALABRAS
-===================================================== */
+/* =========================================
+   FRASES
+========================================= */
 
-const romanticWords = [
+const words = [
 
     "Te amo 💛",
 
@@ -80,13 +117,9 @@ const romanticWords = [
 
     "Mi amor 💛",
 
-    "Mi lugar especial",
-
     "Felicidad",
 
     "Te amo infinito",
-
-    "Mi niño hermoso",
 
     "Mi chico favorito",
 
@@ -97,30 +130,56 @@ const romanticWords = [
 ];
 
 
-/* =====================================================
-   AJUSTAR CANVAS
-===================================================== */
+/* =========================================
+   CANVAS
+========================================= */
+
+let dpr =
+    Math.min(
+        window.devicePixelRatio || 1,
+        2
+    );
+
 
 function resizeCanvas() {
 
+    dpr =
+        Math.min(
+            window.devicePixelRatio || 1,
+            2
+        );
+
+
     canvas.width =
-        window.innerWidth * devicePixelRatio;
+        window.innerWidth * dpr;
+
 
     canvas.height =
-        window.innerHeight * devicePixelRatio;
+        window.innerHeight * dpr;
+
+
+    canvas.style.width =
+        window.innerWidth + "px";
+
+
+    canvas.style.height =
+        window.innerHeight + "px";
+
 
     ctx.setTransform(
-        devicePixelRatio,
+        dpr,
         0,
         0,
-        devicePixelRatio,
+        dpr,
         0,
         0
     );
+
 }
 
 
 resizeCanvas();
+
 
 window.addEventListener(
     "resize",
@@ -128,33 +187,37 @@ window.addEventListener(
 );
 
 
-/* =====================================================
+/* =========================================
    ESTRELLAS
-===================================================== */
+========================================= */
 
-const stars = [];
+const stars =
+    Array.from(
+        { length: 50 },
+        () => ({
 
+            x:
+                Math.random() *
+                window.innerWidth,
 
-for (let i = 0; i < 45; i++) {
+            y:
+                Math.random() *
+                window.innerHeight,
 
-    stars.push({
+            r:
+                Math.random() *
+                1.4 + .3,
 
-        x: Math.random() * window.innerWidth,
+            alpha:
+                Math.random() *
+                .6 + .2,
 
-        y: Math.random() * window.innerHeight,
+            speed:
+                Math.random() *
+                .008 + .002
 
-        radius:
-            Math.random() * 1.5 + 0.3,
-
-        alpha:
-            Math.random() * 0.6 + 0.2,
-
-        speed:
-            Math.random() * 0.01 + 0.002
-
-    });
-
-}
+        })
+    );
 
 
 function drawStars() {
@@ -167,64 +230,92 @@ function drawStars() {
     );
 
 
-    stars.forEach(star => {
+    stars.forEach(
+        star => {
 
-        star.alpha += star.speed;
+            star.alpha +=
+                star.speed;
 
-        if (star.alpha > 1 || star.alpha < 0.15) {
-            star.speed *= -1;
+
+            if (
+                star.alpha > .95 ||
+                star.alpha < .12
+            ) {
+
+                star.speed *= -1;
+
+            }
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                star.x,
+                star.y,
+                star.r,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fillStyle =
+                `rgba(
+                    255,
+                    216,
+                    77,
+                    ${star.alpha}
+                )`;
+
+
+            ctx.fill();
+
         }
+    );
 
 
-        ctx.beginPath();
+    requestAnimationFrame(
+        drawStars
+    );
 
-        ctx.arc(
-            star.x,
-            star.y,
-            star.radius,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fillStyle =
-            `rgba(255,213,74,${star.alpha})`;
-
-        ctx.fill();
-
-    });
-
-
-    requestAnimationFrame(drawStars);
 }
 
 
 drawStars();
 
 
-/* =====================================================
-   INICIAR EXPERIENCIA
-===================================================== */
+/* =========================================
+   ABRIR SORPRESA
+========================================= */
 
 startButton.addEventListener(
     "click",
     async () => {
 
-        welcomeScreen.classList.add("hide");
+        welcomeScreen.classList.add(
+            "hide"
+        );
+
 
         createExplosion(
             window.innerWidth / 2,
             window.innerHeight / 2
         );
 
+
         try {
 
             await music.play();
 
-            musicButton.textContent = "🔊";
+            musicButton.textContent =
+                "🔊";
 
-        } catch (error) {
+        }
 
-            musicButton.textContent = "🎵";
+        catch {
+
+            musicButton.textContent =
+                "🎵";
 
         }
 
@@ -232,9 +323,9 @@ startButton.addEventListener(
 );
 
 
-/* =====================================================
+/* =========================================
    MÚSICA
-===================================================== */
+========================================= */
 
 musicButton.addEventListener(
     "click",
@@ -242,36 +333,43 @@ musicButton.addEventListener(
 );
 
 
-function toggleMusic() {
+async function toggleMusic() {
 
     if (music.paused) {
 
-        music.play()
-            .then(() => {
+        try {
 
-                musicButton.textContent = "🔊";
+            await music.play();
 
-            })
-            .catch(() => {
+            musicButton.textContent =
+                "🔊";
 
-                musicButton.textContent = "🎵";
+        }
 
-            });
+        catch {
 
-    } else {
+            musicButton.textContent =
+                "🎵";
+
+        }
+
+    }
+
+    else {
 
         music.pause();
 
-        musicButton.textContent = "🔇";
+        musicButton.textContent =
+            "🔇";
 
     }
 
 }
 
 
-/* =====================================================
+/* =========================================
    GIRASOL
-===================================================== */
+========================================= */
 
 sunflower.addEventListener(
     "click",
@@ -282,26 +380,64 @@ sunflower.addEventListener(
             event.clientY
         );
 
+
         openLetter();
 
     }
 );
 
 
-/* =====================================================
-   CARTA
-===================================================== */
+/* =========================================
+   BOTÓN TOCAR GIRASOL
+========================================= */
+
+touchHint.addEventListener(
+    "click",
+    () => {
+
+        const rect =
+            sunflower.getBoundingClientRect();
+
+
+        createExplosion(
+
+            rect.left +
+            rect.width / 2,
+
+            rect.top +
+            rect.height / 2
+
+        );
+
+
+        openLetter();
+
+    }
+);
+
+
+/* =========================================
+   ABRIR CARTA
+========================================= */
 
 function openLetter() {
 
-    letterModal.classList.add("active");
+    letterModal.classList.add(
+        "active"
+    );
 
 }
 
 
+/* =========================================
+   CERRAR CARTA
+========================================= */
+
 function closeLetter() {
 
-    letterModal.classList.remove("active");
+    letterModal.classList.remove(
+        "active"
+    );
 
 }
 
@@ -316,7 +452,10 @@ letterModal.addEventListener(
     "click",
     event => {
 
-        if (event.target === letterModal) {
+        if (
+            event.target ===
+            letterModal
+        ) {
 
             closeLetter();
 
@@ -326,22 +465,28 @@ letterModal.addEventListener(
 );
 
 
-/* =====================================================
+/* =========================================
    TECLA ESC
-===================================================== */
+========================================= */
 
 document.addEventListener(
     "keydown",
     event => {
 
-        if (event.key === "Escape") {
+        if (
+            event.key ===
+            "Escape"
+        ) {
 
             closeLetter();
 
         }
 
 
-        if (event.code === "Space") {
+        if (
+            event.code ===
+            "Space"
+        ) {
 
             event.preventDefault();
 
@@ -353,64 +498,70 @@ document.addEventListener(
 );
 
 
-/* =====================================================
+/* =========================================
    PALABRAS FLOTANTES
-===================================================== */
+========================================= */
 
 function createFloatingWord() {
 
-    const currentWords =
+    const current =
         document.querySelectorAll(
             ".floating-word"
         );
 
 
     if (
-        currentWords.length >=
+        current.length >=
         CONFIG.maxWords
     ) {
+
         return;
+
     }
 
 
     const word =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     word.className =
         "floating-word";
 
 
     word.textContent =
-        romanticWords[
+        words[
             Math.floor(
                 Math.random() *
-                romanticWords.length
+                words.length
             )
         ];
 
 
     word.style.left =
-        Math.random() * 85 + 5 + "%";
+        `${5 + Math.random() * 85}%`;
 
 
     word.style.setProperty(
         "--move",
-        (Math.random() * 120 - 60) + "px"
+        `${Math.random() * 120 - 60}px`
     );
 
 
     word.style.animationDuration =
-        (4 + Math.random() * 3) + "s";
+        `${4.5 + Math.random() * 2.5}s`;
 
 
-    wordsContainer.appendChild(word);
+    wordsContainer.appendChild(
+        word
+    );
 
 
-    setTimeout(() => {
-
-        word.remove();
-
-    }, 7500);
+    setTimeout(
+        () => word.remove(),
+        8000
+    );
 
 }
 
@@ -421,59 +572,65 @@ setInterval(
 );
 
 
-/* =====================================================
-   PÉTALOS
-===================================================== */
+/* =========================================
+   PÉTALOS QUE CAEN
+========================================= */
 
 function createFallingPetal() {
 
-    const petals =
+    const current =
         document.querySelectorAll(
             ".falling-petal"
         );
 
 
     if (
-        petals.length >=
+        current.length >=
         CONFIG.maxPetals
     ) {
+
         return;
+
     }
 
 
     const petal =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     petal.className =
         "falling-petal";
 
 
     petal.textContent =
-        Math.random() > 0.5
+        Math.random() > .45
             ? "🌻"
             : "✦";
 
 
     petal.style.left =
-        Math.random() * 100 + "vw";
+        `${Math.random() * 100}vw`;
 
 
     petal.style.fontSize =
-        (12 + Math.random() * 18) + "px";
+        `${12 + Math.random() * 16}px`;
 
 
     petal.style.animationDuration =
-        (5 + Math.random() * 5) + "s";
+        `${5 + Math.random() * 5}s`;
 
 
-    petalsContainer.appendChild(petal);
+    petalsContainer.appendChild(
+        petal
+    );
 
 
-    setTimeout(() => {
-
-        petal.remove();
-
-    }, 11000);
+    setTimeout(
+        () => petal.remove(),
+        11000
+    );
 
 }
 
@@ -484,29 +641,37 @@ setInterval(
 );
 
 
-/* =====================================================
+/* =========================================
    EXPLOSIÓN DE CHISPAS
-===================================================== */
+========================================= */
 
-function createExplosion(x, y) {
+function createExplosion(
+    x,
+    y
+) {
 
     const emojis = [
+
         "✨",
         "💛",
         "🌻",
         "⭐",
         "💫"
+
     ];
 
 
     for (
         let i = 0;
-        i < 10;
+        i < 12;
         i++
     ) {
 
         const spark =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
+
 
         spark.className =
             "spark";
@@ -522,11 +687,11 @@ function createExplosion(x, y) {
 
 
         spark.style.left =
-            x + "px";
+            `${x}px`;
 
 
         spark.style.top =
-            y + "px";
+            `${y}px`;
 
 
         const angle =
@@ -537,7 +702,8 @@ function createExplosion(x, y) {
 
         const distance =
             50 +
-            Math.random() * 120;
+            Math.random() *
+            120;
 
 
         const moveX =
@@ -567,61 +733,43 @@ function createExplosion(x, y) {
         );
 
 
-        setTimeout(() => {
-
-            spark.remove();
-
-        }, 1000);
+        setTimeout(
+            () => spark.remove(),
+            1000
+        );
 
     }
 
 }
 
 
-/* =====================================================
-   TOQUE EN CUALQUIER PARTE
-===================================================== */
+/* =========================================
+   EFECTOS AL CARGAR
+========================================= */
 
-document.addEventListener(
-    "pointerdown",
-    event => {
-
-        if (
-            event.target === sunflower ||
-            sunflower.contains(event.target)
-        ) {
-            return;
-        }
-
-
-        createExplosion(
-            event.clientX,
-            event.clientY
-        );
-
-    }
-);
-
-
-/* =====================================================
-   PRIMERAS ANIMACIONES
-===================================================== */
-
-for (let i = 0; i < 3; i++) {
+for (
+    let i = 0;
+    i < 3;
+    i++
+) {
 
     setTimeout(
         createFloatingWord,
-        i * 700
+        700 + i * 650
     );
 
 }
 
 
-for (let i = 0; i < 5; i++) {
+for (
+    let i = 0;
+    i < 5;
+    i++
+) {
 
     setTimeout(
         createFallingPetal,
-        i * 300
+        i * 350
     );
 
 }
