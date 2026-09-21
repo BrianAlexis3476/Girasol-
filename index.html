@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Para Ti, Mi Rey 🌻💛</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- PANTALLA DE INICIO -->
+    <div id="welcomeScreen" class="welcome-screen">
+
+        <div class="welcome-card">
+
+            <div class="mini-sunflower">🌻</div>
+
+            <h1>Para ti, mi rey 💛</h1>
+
+            <p>
+                Tengo una pequeña sorpresa preparada para ti...
+            </p>
+
+            <button id="startButton">
+                ✨ Abrir sorpresa ✨
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- FONDO -->
+    <canvas id="sparksCanvas"></canvas>
+
+    <div id="petalsContainer"></div>
+    <div id="wordsContainer"></div>
+    <div id="sparksContainer"></div>
+
+
+    <!-- BOTÓN DE MÚSICA -->
+    <button id="musicButton" class="music-button">
+        🎵
+    </button>
+
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content">
+
+        <div class="top-text">
+            <span>MI PERSONA FAVORITA</span>
+            <span>💛</span>
+        </div>
+
+
+        <section class="sunflower-section">
+
+            <div class="aura"></div>
+
+            <div id="sunflower" class="sunflower">
+
+                <!-- Pétalos -->
+                <div class="petals">
+
+                    <span class="petal p1"></span>
+                    <span class="petal p2"></span>
+                    <span class="petal p3"></span>
+                    <span class="petal p4"></span>
+                    <span class="petal p5"></span>
+                    <span class="petal p6"></span>
+                    <span class="petal p7"></span>
+                    <span class="petal p8"></span>
+                    <span class="petal p9"></span>
+                    <span class="petal p10"></span>
+                    <span class="petal p11"></span>
+                    <span class="petal p12"></span>
+                    <span class="petal p13"></span>
+                    <span class="petal p14"></span>
+                    <span class="petal p15"></span>
+                    <span class="petal p16"></span>
+
+                </div>
+
+
+                <!-- Centro -->
+                <div class="flower-center">
+
+                    <div class="seed s1"></div>
+                    <div class="seed s2"></div>
+                    <div class="seed s3"></div>
+                    <div class="seed s4"></div>
+                    <div class="seed s5"></div>
+                    <div class="seed s6"></div>
+                    <div class="seed s7"></div>
+                    <div class="seed s8"></div>
+                    <div class="seed s9"></div>
+                    <div class="seed s10"></div>
+                    <div class="seed s11"></div>
+                    <div class="seed s12"></div>
+
+                </div>
+
+            </div>
+
+
+            <h1 class="main-title">
+                Para Ti, Mi Rey 🌻
+            </h1>
+
+            <p class="subtitle">
+                Un pequeño detalle hecho con mucho cariño 💛
+            </p>
+
+            <div class="touch-hint">
+                ✨ Toca el girasol ✨
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- MODAL / CARTA -->
+    <div id="letterModal" class="modal">
+
+        <div class="letter-card">
+
+            <button id="closeModal" class="close-button">
+                ×
+            </button>
+
+            <div class="letter-flower">
+                🌻
+            </div>
+
+            <h2>Para mi rey 💛</h2>
+
+            <div class="letter-line"></div>
+
+            <p>
+                Quiero que recuerdes algo...
+            </p>
+
+            <p>
+                Entre tantas personas, tantos caminos y tantos momentos,
+                me alegra que nuestros caminos se hayan encontrado.
+            </p>
+
+            <p>
+                Gracias por ser esa persona especial que hace que
+                los días tengan un poquito más de luz.
+            </p>
+
+            <p>
+                Nunca olvides lo mucho que vales y lo especial que eres.
+            </p>
+
+            <p class="final-message">
+                🌻 Siempre habrá un girasol buscando la luz,
+                y siempre habrá un lugar especial para ti. 💛
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- AUDIO -->
+    <audio id="backgroundMusic" loop>
+        <source
+            src="https://ia801503.us.archive.org/15/items/flores-amarillas/flores-amarillas.mp3"
+            type="audio/mpeg">
+    </audio>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
