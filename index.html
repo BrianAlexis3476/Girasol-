@@ -2,106 +2,84 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Para Ti, Mi Rey 🌻💛</title>
+    <!-- MUY IMPORTANTE PARA CELULAR -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Para Ti 🌻💛</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- =========================================
-         PANTALLA DE BIENVENIDA
-    ========================================== -->
-
+    <!-- PANTALLA DE BIENVENIDA -->
     <div id="welcomeScreen" class="welcome-screen">
 
         <div class="welcome-card">
+            <div class="welcome-sun">🌻</div>
 
-            <div class="mini-sunflower">
-                🌻
-            </div>
-
-            <h1>
-                Para ti, mi rey 💛
-            </h1>
+            <h1>Para ti 💛</h1>
 
             <p>
-                Tengo una pequeña sorpresa preparada para ti...
+                Preparé algo especial para ti
             </p>
 
             <button id="startButton">
                 ✨ Abrir sorpresa ✨
             </button>
-
         </div>
 
     </div>
 
 
-    <!-- =========================================
-         EFECTOS DE FONDO
-    ========================================== -->
+    <!-- FONDO -->
+    <div class="background"></div>
 
-    <canvas id="sparksCanvas"></canvas>
+    <div id="stars"></div>
 
+    <!-- PÉTALOS -->
     <div id="petalsContainer"></div>
 
+    <!-- PALABRAS FLOTANTES -->
     <div id="wordsContainer"></div>
 
+    <!-- PARTÍCULAS -->
     <div id="sparksContainer"></div>
 
 
-    <!-- =========================================
-         BOTÓN DE MÚSICA
-    ========================================== -->
+    <!-- MÚSICA -->
+    <audio id="backgroundMusic" loop preload="none">
+        <source
+            src="https://ia801503.us.archive.org/15/items/flores-amarillas/flores-amarillas.mp3"
+            type="audio/mpeg">
+    </audio>
 
-    <button
-        id="musicButton"
-        class="music-button"
-        aria-label="Controlar música"
-    >
+
+    <!-- BOTÓN DE MÚSICA -->
+    <button id="musicButton" class="music-button">
         🎵
     </button>
 
 
-    <!-- =========================================
-         CONTENIDO PRINCIPAL
-    ========================================== -->
-
+    <!-- CONTENIDO PRINCIPAL -->
     <main class="main-content">
-
-        <div class="top-text">
-            MI PERSONA FAVORITA 💛
-        </div>
-
 
         <section class="hero">
 
+            <div class="top-text">
+                🌻 Para alguien especial 🌻
+            </div>
 
-            <!-- =====================================
-                 GIRASOL
-            ====================================== -->
 
-            <div
-                id="sunflower"
-                class="sunflower"
-                aria-label="Girasol interactivo"
-            >
+            <!-- GIRASOL -->
+            <div id="sunflower" class="sunflower">
 
                 <div class="flower-glow"></div>
-
-
-                <!-- PÉTALOS -->
 
                 <div class="petals">
 
@@ -109,74 +87,39 @@
                     <span class="petal p2"></span>
                     <span class="petal p3"></span>
                     <span class="petal p4"></span>
-
                     <span class="petal p5"></span>
                     <span class="petal p6"></span>
                     <span class="petal p7"></span>
                     <span class="petal p8"></span>
-
                     <span class="petal p9"></span>
                     <span class="petal p10"></span>
                     <span class="petal p11"></span>
                     <span class="petal p12"></span>
 
-                    <span class="petal p13"></span>
-                    <span class="petal p14"></span>
-                    <span class="petal p15"></span>
-                    <span class="petal p16"></span>
-
                 </div>
 
-
-                <!-- CENTRO DEL GIRASOL -->
-
                 <div class="flower-center">
-
-                    <span class="seed s1"></span>
-                    <span class="seed s2"></span>
-                    <span class="seed s3"></span>
-                    <span class="seed s4"></span>
-
-                    <span class="seed s5"></span>
-                    <span class="seed s6"></span>
-                    <span class="seed s7"></span>
-                    <span class="seed s8"></span>
-
-                    <span class="seed s9"></span>
-                    <span class="seed s10"></span>
-                    <span class="seed s11"></span>
-                    <span class="seed s12"></span>
-
-                    <span class="seed s13"></span>
-                    <span class="seed s14"></span>
-                    <span class="seed s15"></span>
-                    <span class="seed s16"></span>
-
+                    <span>💛</span>
                 </div>
 
             </div>
 
 
-            <!-- =====================================
-                 TEXTO DELANTE DEL GIRASOL
-            ====================================== -->
-
             <div class="hero-text">
 
+                <div class="subtitle">
+                    MI PERSONA FAVORITA 💛
+                </div>
+
                 <h1 class="main-title">
-                    Para ti, mi rey
-                    <span>🌻</span>
+                    Para Ti, Mi Rey 🌻
                 </h1>
 
-                <p class="subtitle">
-                    Un pequeño detalle hecho con mucho cariño
-                    <b>♥</b>
+                <p class="description">
+                    Que nunca te falten motivos para sonreír.
                 </p>
 
-                <button
-                    id="touchHint"
-                    class="touch-hint"
-                >
+                <button id="touchHint" class="touch-hint">
                     ✨ Toca el girasol ✨
                 </button>
 
@@ -187,90 +130,55 @@
     </main>
 
 
-    <!-- =========================================
-         CARTA
-    ========================================== -->
-
-    <div
-        id="letterModal"
-        class="modal"
-    >
+    <!-- MODAL DE LA CARTA -->
+    <div id="letterModal" class="modal">
 
         <div class="letter-card">
 
-            <button
-                id="closeModal"
-                class="close-button"
-            >
+            <button id="closeModal" class="close-button">
                 ×
             </button>
-
 
             <div class="letter-flower">
                 🌻
             </div>
 
+            <h2>Una pequeña carta 💛</h2>
 
-            <h2>
-                Para mi rey 💛
-            </h2>
+            <div class="letter-text">
 
+                <p>
+                    Quiero que recuerdes algo...
+                </p>
 
-            <div class="letter-line"></div>
+                <p>
+                    Entre tantas personas, tantos caminos y tantos momentos,
+                    me alegra que nuestros caminos se hayan encontrado.
+                </p>
 
+                <p>
+                    Gracias por ser esa persona especial que hace que
+                    los días tengan un poquito más de luz.
+                </p>
 
-            <p>
-                Quiero que recuerdes algo...
-            </p>
+                <p>
+                    Nunca olvides lo mucho que vales y lo especial que eres.
+                </p>
 
+                <p>
+                    🌻 Siempre habrá un girasol buscando la luz,
+                    y yo siempre guardaré un lugar especial para ti. 💛
+                </p>
 
-            <p>
-                Entre tantos caminos y tantos momentos,
-                me alegra que nuestros caminos se hayan encontrado.
-            </p>
-
-
-            <p>
-                Gracias por ser esa persona especial
-                que hace que los días tengan un poquito más de luz.
-            </p>
-
-
-            <p>
-                Nunca olvides lo mucho que vales
-                y lo especial que eres.
-            </p>
-
-
-            <p class="final-message">
-
-                🌻 Siempre habrá un girasol buscando la luz,
-                y siempre habrá un lugar especial para ti. 💛
-
-            </p>
+            </div>
 
         </div>
 
     </div>
 
 
-    <!-- =========================================
-         MÚSICA
-    ========================================== -->
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
 
-    <audio
-        id="backgroundMusic"
-        loop
-        preload="none"
-    >
-
-        <source
-            src="https://ia801503.us.archive.org/15/items/flores-amarillas/flores-amarillas.mp3"
-            type="audio/mpeg"
-        >
-
-    </audio>
-
-<script src="script.js"></script>
-
+</body>
 </html>
