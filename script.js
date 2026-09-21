@@ -1,12 +1,8 @@
-/* =====================================================
-   GIRASOL INTERACTIVO - JAVASCRIPT COMPLETO
-===================================================== */
+document.addEventListener("DOMContentLoaded", function () {
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    /* =================================================
+    /* =====================================
        ELEMENTOS
-    ================================================= */
+    ===================================== */
 
     const welcomeScreen =
         document.getElementById("welcomeScreen");
@@ -32,112 +28,202 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeModal =
         document.getElementById("closeModal");
 
+    const sparksContainer =
+        document.getElementById("sparksContainer");
+
     const petalsContainer =
         document.getElementById("petalsContainer");
 
     const wordsContainer =
         document.getElementById("wordsContainer");
 
-    const sparksContainer =
-        document.getElementById("sparksContainer");
+    const stars =
+        document.getElementById("stars");
 
 
-    /* =================================================
-       FRASES
-    ================================================= */
+    /* =====================================
+       VARIABLES
+    ===================================== */
 
-    const words = [
-        "Te amo 💛",
-        "Mi sol ☀️",
-        "Mi rey 👑",
-        "Eres magia ✨",
-        "Te adoro 💛",
-        "Siempre juntos",
-        "Vida mía",
-        "Mi amor 💛",
-        "Felicidad ✨",
-        "Te amo infinito",
-        "Mi chico favorito",
-        "Mi universo 🌻",
-        "Contigo todo",
-        "Mi persona favorita 💛"
-    ];
+    let musicPlaying = false;
+
+    let lastExplosion = 0;
 
 
-    /* =================================================
-       CREAR CONTENEDOR DE PARTÍCULAS
-       POR SI NO EXISTE
-    ================================================= */
+    /* =====================================
+       ESTRELLAS
+    ===================================== */
 
-    let particleLayer =
-        document.getElementById("touchParticles");
+    function createStars() {
 
-    if (!particleLayer) {
+        if (!stars) return;
 
-        particleLayer =
-            document.createElement("div");
+        const amount =
+            window.innerWidth < 500 ? 35 : 60;
 
-        particleLayer.id =
-            "touchParticles";
+        for (let i = 0; i < amount; i++) {
 
-        particleLayer.style.position =
-            "fixed";
+            const star =
+                document.createElement("span");
 
-        particleLayer.style.inset =
-            "0";
+            star.className = "star";
 
-        particleLayer.style.width =
-            "100%";
+            star.style.left =
+                Math.random() * 100 + "%";
 
-        particleLayer.style.height =
-            "100%";
+            star.style.top =
+                Math.random() * 100 + "%";
 
-        particleLayer.style.pointerEvents =
-            "none";
+            star.style.animationDelay =
+                Math.random() * 3 + "s";
 
-        particleLayer.style.zIndex =
-            "99999";
+            stars.appendChild(star);
+        }
+    }
 
-        document.body.appendChild(
-            particleLayer
+
+    /* =====================================
+       MÚSICA
+    ===================================== */
+
+    async function playMusic() {
+
+        if (!music) return;
+
+        try {
+
+            await music.play();
+
+            musicPlaying = true;
+
+            if (musicButton) {
+                musicButton.textContent = "🔊";
+                musicButton.classList.add("playing");
+            }
+
+        } catch (error) {
+
+            console.log(
+                "La música necesita interacción del usuario."
+            );
+
+        }
+    }
+
+
+    function stopMusic() {
+
+        if (!music) return;
+
+        music.pause();
+
+        musicPlaying = false;
+
+        if (musicButton) {
+
+            musicButton.textContent = "🎵";
+
+            musicButton.classList.remove("playing");
+        }
+    }
+
+
+    function toggleMusic() {
+
+        if (musicPlaying) {
+            stopMusic();
+        } else {
+            playMusic();
+        }
+    }
+
+
+    /* =====================================
+       BOTÓN DE INICIO
+    ===================================== */
+
+    if (startButton) {
+
+        startButton.addEventListener(
+            "click",
+            function () {
+
+                if (welcomeScreen) {
+                    welcomeScreen.classList.add("hidden");
+                }
+
+                playMusic();
+
+                createWord();
+
+                createPetal();
+            }
         );
     }
 
 
-    /* =================================================
+    /* =====================================
+       BOTÓN DE MÚSICA
+    ===================================== */
+
+    if (musicButton) {
+
+        musicButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+                toggleMusic();
+            }
+        );
+    }
+
+
+    /* =====================================
        EXPLOSIÓN DE PARTÍCULAS
-    ================================================= */
+    ===================================== */
 
     function createExplosion(x, y) {
+
+        if (!sparksContainer) return;
+
+
+        /*
+           Evita demasiadas explosiones
+           al mismo tiempo.
+        */
+
+        const now = Date.now();
+
+        if (now - lastExplosion < 100) {
+            return;
+        }
+
+        lastExplosion = now;
+
 
         const emojis = [
             "✨",
             "💛",
             "🌻",
             "⭐",
-            "💫",
             "✦"
         ];
 
 
-        /* Número de partículas */
+        /*
+           Solo 14 partículas.
+           Esto evita cargar demasiado
+           el teléfono.
+        */
 
-        const amount = 18;
-
-
-        for (
-            let i = 0;
-            i < amount;
-            i++
-        ) {
+        for (let i = 0; i < 14; i++) {
 
             const particle =
                 document.createElement("div");
 
-
-            /* Emoji */
-
-            particle.innerHTML =
+            particle.textContent =
                 emojis[
                     Math.floor(
                         Math.random() *
@@ -146,12 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 ];
 
 
-            /* =====================================
-               ESTILOS DIRECTAMENTE DESDE JS
-            ===================================== */
-
-            particle.style.position =
-                "fixed";
+            particle.style.position = "fixed";
 
             particle.style.left =
                 x + "px";
@@ -159,550 +240,206 @@ document.addEventListener("DOMContentLoaded", () => {
             particle.style.top =
                 y + "px";
 
-            particle.style.transform =
-                "translate(-50%, -50%)";
-
             particle.style.fontSize =
-                (16 + Math.random() * 16) +
-                "px";
-
-            particle.style.lineHeight =
-                "1";
+                (12 + Math.random() * 12) + "px";
 
             particle.style.pointerEvents =
                 "none";
 
             particle.style.zIndex =
-                "999999";
-
-            particle.style.opacity =
-                "1";
-
-            particle.style.filter =
-                "drop-shadow(0 0 8px rgba(255,210,50,.9))";
+                "9999";
 
             particle.style.transition =
-                "transform 900ms cubic-bezier(.15,.8,.25,1), opacity 900ms ease";
+                "transform 700ms ease-out, opacity 700ms ease-out";
+
+            particle.style.opacity = "1";
 
 
-            /* =====================================
-               DIRECCIÓN ALEATORIA
-            ===================================== */
-
-            const angle =
-                Math.random() *
-                Math.PI *
-                2;
-
-
-            const distance =
-                70 +
-                Math.random() *
-                160;
-
-
-            const moveX =
-                Math.cos(angle) *
-                distance;
-
-
-            const moveY =
-                Math.sin(angle) *
-                distance;
-
-
-            /* Añadir al DOM */
-
-            particleLayer.appendChild(
+            sparksContainer.appendChild(
                 particle
             );
 
 
-            /* =====================================
-               ANIMACIÓN
-            ===================================== */
-
-            requestAnimationFrame(() => {
-
-                particle.style.transform =
-                    `translate(
-                        calc(-50% + ${moveX}px),
-                        calc(-50% + ${moveY}px)
-                    )
-                    scale(1.3)
-                    rotate(${Math.random() * 360}deg)`;
-
-                particle.style.opacity =
-                    "0";
-
-            });
-
-
-            /* Eliminar */
-
-            setTimeout(() => {
-
-                particle.remove();
-
-            }, 1000);
-
-        }
-    }
-
-
-    /* =================================================
-       PARTÍCULAS PEQUEÑAS EXTRA
-       ALREDEDOR DEL TOQUE
-    ================================================= */
-
-    function createSmallSparks(x, y) {
-
-        for (
-            let i = 0;
-            i < 12;
-            i++
-        ) {
-
-            const spark =
-                document.createElement("div");
-
-
-            spark.innerHTML =
-                "✦";
-
-
-            spark.style.position =
-                "fixed";
-
-            spark.style.left =
-                x + "px";
-
-            spark.style.top =
-                y + "px";
-
-            spark.style.zIndex =
-                "999999";
-
-            spark.style.pointerEvents =
-                "none";
-
-            spark.style.color =
-                "#ffd83d";
-
-            spark.style.fontSize =
-                (8 + Math.random() * 10) +
-                "px";
-
-            spark.style.textShadow =
-                "0 0 10px #ffd83d";
-
-            spark.style.transform =
-                "translate(-50%, -50%)";
-
-            spark.style.transition =
-                "all .7s ease-out";
-
-
-            particleLayer.appendChild(
-                spark
-            );
-
-
             const angle =
                 Math.random() *
                 Math.PI *
                 2;
 
-
             const distance =
-                30 +
-                Math.random() *
-                90;
+                50 +
+                Math.random() * 90;
 
-
-            const moveX =
+            const dx =
                 Math.cos(angle) *
                 distance;
 
-
-            const moveY =
+            const dy =
                 Math.sin(angle) *
                 distance;
 
 
-            requestAnimationFrame(() => {
+            /*
+               Esperamos un instante para
+               que el navegador registre
+               la posición inicial.
+            */
 
-                spark.style.transform =
-                    `translate(
-                        ${moveX}px,
-                        ${moveY}px
-                    )
-                    scale(0)`;
+            requestAnimationFrame(function () {
 
-                spark.style.opacity =
-                    "0";
+                particle.style.transform =
+                    "translate(" +
+                    dx +
+                    "px, " +
+                    dy +
+                    "px) scale(0.3)";
 
+                particle.style.opacity = "0";
             });
 
 
-            setTimeout(() => {
+            setTimeout(function () {
 
-                spark.remove();
+                particle.remove();
 
-            }, 800);
-
+            }, 750);
         }
     }
 
 
-    /* =================================================
-       TOQUE EN CUALQUIER PARTE
-    ================================================= */
+    /* =====================================
+       TOQUE EN PANTALLA
+    ===================================== */
 
-    let lastTouch = 0;
-
-
-    function handleTouch(x, y) {
-
-        const now =
-            Date.now();
-
+    function handleTouch(event) {
 
         /*
-           Evitar doble evento
+           No crear partículas si se está
+           tocando el botón de música.
         */
 
         if (
-            now - lastTouch < 50
+            event.target === musicButton ||
+            musicButton?.contains(event.target)
+        ) {
+            return;
+        }
+
+
+        let x;
+        let y;
+
+
+        if (
+            event.touches &&
+            event.touches.length > 0
         ) {
 
-            return;
-
-        }
-
-
-        lastTouch = now;
-
-
-        /* EXPLOSIÓN */
-
-        createExplosion(
-            x,
-            y
-        );
-
-
-        /* CHISPAS */
-
-        createSmallSparks(
-            x,
-            y
-        );
-
-    }
-
-
-    /* =================================================
-       POINTERDOWN
-    ================================================= */
-
-    document.addEventListener(
-        "pointerdown",
-        (event) => {
-
-            /*
-                Ignorar solamente los controles
-                internos de la carta.
-            */
-
-            if (
-                event.target.closest(
-                    ".letter-card"
-                )
-            ) {
-
-                return;
-
-            }
-
-
-            handleTouch(
-                event.clientX,
-                event.clientY
-            );
-
-        },
-        {
-            passive: true
-        }
-    );
-
-
-    /* =================================================
-       TOUCHSTART - COMPATIBILIDAD CELULAR
-    ================================================= */
-
-    document.addEventListener(
-        "touchstart",
-        (event) => {
-
-            if (!event.touches.length) {
-                return;
-            }
-
-
-            const touch =
-                event.touches[0];
-
-
-            handleTouch(
-                touch.clientX,
-                touch.clientY
-            );
-
-        },
-        {
-            passive: true
-        }
-    );
-
-
-    /* =================================================
-       CLICK - COMPATIBILIDAD PC
-    ================================================= */
-
-    document.addEventListener(
-        "click",
-        (event) => {
-
-            /*
-                Solo usamos click si no fue
-                producido inmediatamente por touch.
-            */
-
-            const now =
-                Date.now();
-
-
-            if (
-                now - lastTouch < 500
-            ) {
-
-                return;
-
-            }
-
-
-            /*
-                No crear partículas encima
-                de la carta.
-            */
-
-            if (
-                event.target.closest(
-                    ".letter-card"
-                )
-            ) {
-
-                return;
-
-            }
-
-
-            handleTouch(
-                event.clientX,
-                event.clientY
-            );
-
-        }
-    );
-
-
-    /* =================================================
-       BOTÓN INICIAL
-    ================================================= */
-
-    if (startButton) {
-
-        startButton.addEventListener(
-            "click",
-            async (event) => {
-
-                event.stopPropagation();
-
-
-                if (welcomeScreen) {
-
-                    welcomeScreen.classList.add(
-                        "hide"
-                    );
-
-                }
-
-
-                /*
-                    Explosión central
-                */
-
-                createExplosion(
-                    window.innerWidth / 2,
-                    window.innerHeight / 2
-                );
-
-
-                /*
-                    Intentar reproducir música
-                */
-
-                if (music) {
-
-                    try {
-
-                        await music.play();
-
-                        if (musicButton) {
-
-                            musicButton.textContent =
-                                "🔊";
-
-                        }
-
-                    } catch (error) {
-
-                        console.log(
-                            "La música necesita interacción:",
-                            error
-                        );
-
-                    }
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =================================================
-       MÚSICA
-    ================================================= */
-
-    if (musicButton) {
-
-        musicButton.addEventListener(
-            "click",
-            (event) => {
-
-                event.stopPropagation();
-
-                toggleMusic();
-
-            }
-        );
-
-    }
-
-
-    async function toggleMusic() {
-
-        if (!music) {
-            return;
-        }
-
-
-        if (music.paused) {
-
-            try {
-
-                await music.play();
-
-                if (musicButton) {
-
-                    musicButton.textContent =
-                        "🔊";
-
-                }
-
-            } catch (error) {
-
-                console.log(
-                    "No se pudo reproducir:",
-                    error
-                );
-
-            }
+            x = event.touches[0].clientX;
+            y = event.touches[0].clientY;
 
         } else {
 
-            music.pause();
-
-            if (musicButton) {
-
-                musicButton.textContent =
-                    "🔇";
-
-            }
-
+            x = event.clientX;
+            y = event.clientY;
         }
 
+
+        createExplosion(x, y);
     }
 
 
-    /* =================================================
+    /*
+       pointerdown funciona en:
+       - celular
+       - tablet
+       - computadora
+    */
+
+    document.addEventListener(
+        "pointerdown",
+        handleTouch,
+        {
+            passive: true
+        }
+    );
+
+
+    /* =====================================
        GIRASOL
-    ================================================= */
+    ===================================== */
+
+    function touchSunflower(event) {
+
+        if (!sunflower) return;
+
+
+        const rect =
+            sunflower.getBoundingClientRect();
+
+
+        const x =
+            rect.left +
+            rect.width / 2;
+
+
+        const y =
+            rect.top +
+            rect.height / 2;
+
+
+        /*
+           Crear una explosión adicional
+           en el centro del girasol.
+        */
+
+        createExplosion(x, y);
+
+        createExplosion(
+            x + 20,
+            y - 15
+        );
+
+
+        /*
+           Abrir carta
+           después del toque.
+        */
+
+        setTimeout(
+            openLetter,
+            250
+        );
+
+
+        /*
+           Intentar iniciar música.
+        */
+
+        if (!musicPlaying) {
+            playMusic();
+        }
+    }
+
 
     if (sunflower) {
 
         sunflower.addEventListener(
             "click",
-            (event) => {
-
-                /*
-                    Crear una explosión extra
-                    en el centro del girasol.
-                */
-
-                const rect =
-                    sunflower.getBoundingClientRect();
-
-
-                createExplosion(
-                    rect.left +
-                    rect.width / 2,
-
-                    rect.top +
-                    rect.height / 2
-                );
-
-
-                openLetter();
-
-            }
+            touchSunflower
         );
-
     }
 
-
-    /* =================================================
-       BOTÓN TOCAR GIRASOL
-    ================================================= */
 
     if (touchHint) {
 
         touchHint.addEventListener(
             "click",
-            (event) => {
-
-                event.stopPropagation();
-
+            function () {
 
                 if (sunflower) {
 
                     const rect =
                         sunflower.getBoundingClientRect();
-
 
                     createExplosion(
                         rect.left +
@@ -711,47 +448,31 @@ document.addEventListener("DOMContentLoaded", () => {
                         rect.top +
                         rect.height / 2
                     );
-
                 }
 
-
                 openLetter();
-
             }
         );
-
     }
 
 
-    /* =================================================
+    /* =====================================
        CARTA
-    ================================================= */
+    ===================================== */
 
     function openLetter() {
 
-        if (!letterModal) {
-            return;
-        }
+        if (!letterModal) return;
 
-
-        letterModal.classList.add(
-            "active"
-        );
-
+        letterModal.classList.add("show");
     }
 
 
     function closeLetter() {
 
-        if (!letterModal) {
-            return;
-        }
+        if (!letterModal) return;
 
-
-        letterModal.classList.remove(
-            "active"
-        );
-
+        letterModal.classList.remove("show");
     }
 
 
@@ -759,103 +480,140 @@ document.addEventListener("DOMContentLoaded", () => {
 
         closeModal.addEventListener(
             "click",
-            (event) => {
+            function (event) {
 
                 event.stopPropagation();
 
                 closeLetter();
-
             }
         );
-
     }
 
+
+    /*
+       Si toca fuera de la carta,
+       también se cierra.
+    */
 
     if (letterModal) {
 
         letterModal.addEventListener(
             "click",
-            (event) => {
+            function (event) {
 
                 if (
                     event.target ===
                     letterModal
                 ) {
-
                     closeLetter();
-
                 }
-
             }
         );
-
     }
 
 
-    /* =================================================
-       ESC
-    ================================================= */
+    /* =====================================
+       PÉTALOS
+    ===================================== */
 
-    document.addEventListener(
-        "keydown",
-        (event) => {
+    function createPetal() {
 
-            if (
-                event.key ===
-                "Escape"
-            ) {
-
-                closeLetter();
-
-            }
+        if (!petalsContainer) return;
 
 
-            if (
-                event.code ===
-                "Space"
-            ) {
+        const petal =
+            document.createElement("div");
 
-                event.preventDefault();
+        petal.className =
+            "falling-petal";
 
-                toggleMusic();
+        petal.textContent = "🌻";
 
-            }
 
-        }
+        petal.style.left =
+            Math.random() * 100 + "%";
+
+
+        petal.style.fontSize =
+            (10 + Math.random() * 12) + "px";
+
+
+        petal.style.setProperty(
+            "--drift",
+            (
+                -80 +
+                Math.random() * 160
+            ) + "px"
+        );
+
+
+        const duration =
+            6 +
+            Math.random() * 6;
+
+
+        petal.style.animationDuration =
+            duration + "s";
+
+
+        petalsContainer.appendChild(
+            petal
+        );
+
+
+        setTimeout(
+            function () {
+
+                petal.remove();
+
+            },
+            (duration + 1) * 1000
+        );
+    }
+
+
+    /*
+       Solo unos pocos pétalos
+       para mantener el teléfono
+       fluido.
+    */
+
+    setInterval(
+        function () {
+
+            createPetal();
+
+        },
+        1300
     );
 
 
-    /* =================================================
+    /* =====================================
        PALABRAS FLOTANTES
-    ================================================= */
+    ===================================== */
 
-    function createFloatingWord() {
+    const words = [
+        "Te amo 💛",
+        "Mi sol ☀️",
+        "Mi rey 👑",
+        "Eres magia ✨",
+        "Te adoro",
+        "Siempre juntos",
+        "Vida mía",
+        "Mi amor 💛",
+        "Felicidad",
+        "Mi universo",
+        "Contigo todo"
+    ];
 
-        if (!wordsContainer) {
-            return;
-        }
 
+    function createWord() {
 
-        const existing =
-            document.querySelectorAll(
-                ".floating-word"
-            );
-
-
-        if (
-            existing.length >= 5
-        ) {
-
-            return;
-
-        }
+        if (!wordsContainer) return;
 
 
         const word =
-            document.createElement(
-                "div"
-            );
-
+            document.createElement("div");
 
         word.className =
             "floating-word";
@@ -871,26 +629,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         word.style.left =
-            (5 + Math.random() * 85) +
+            (5 +
+            Math.random() * 80) +
             "%";
 
 
-        word.style.setProperty(
-            "--move",
-            (
-                Math.random() *
-                120 -
-                60
-            ) +
-            "px"
-        );
+        word.style.top =
+            (20 +
+            Math.random() * 60) +
+            "%";
 
 
         word.style.animationDuration =
-            (
-                4.5 +
-                Math.random() * 2
-            ) +
+            (5 +
+            Math.random() * 4) +
             "s";
 
 
@@ -899,153 +651,75 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        setTimeout(() => {
+        setTimeout(
+            function () {
 
-            word.remove();
+                word.remove();
 
-        }, 8000);
-
-    }
-
-
-    setInterval(
-        createFloatingWord,
-        1800
-    );
-
-
-    /* =================================================
-       PÉTALOS QUE CAEN
-    ================================================= */
-
-    function createFallingPetal() {
-
-        if (!petalsContainer) {
-            return;
-        }
-
-
-        const existing =
-            document.querySelectorAll(
-                ".falling-petal"
-            );
-
-
-        if (
-            existing.length >= 16
-        ) {
-
-            return;
-
-        }
-
-
-        const petal =
-            document.createElement(
-                "div"
-            );
-
-
-        petal.className =
-            "falling-petal";
-
-
-        petal.textContent =
-            Math.random() > .45
-                ? "🌻"
-                : "✦";
-
-
-        petal.style.position =
-            "fixed";
-
-        petal.style.top =
-            "-40px";
-
-        petal.style.left =
-            Math.random() * 100 +
-            "vw";
-
-        petal.style.zIndex =
-            "2";
-
-        petal.style.pointerEvents =
-            "none";
-
-        petal.style.fontSize =
-            (
-                12 +
-                Math.random() * 16
-            ) +
-            "px";
-
-        petal.style.animation =
-            "falling " +
-            (
-                5 +
-                Math.random() * 5
-            ) +
-            "s linear forwards";
-
-
-        petalsContainer.appendChild(
-            petal
+            },
+            9000
         );
-
-
-        setTimeout(() => {
-
-            petal.remove();
-
-        }, 11000);
-
     }
 
 
+    /*
+       Una palabra cada 3 segundos.
+    */
+
     setInterval(
-        createFallingPetal,
-        600
+        createWord,
+        3000
     );
 
 
-    /* =================================================
-       EFECTO INICIAL
-    ================================================= */
+    /* =====================================
+       CREAR ESTRELLAS
+    ===================================== */
+
+    createStars();
+
+
+    /* =====================================
+       PÉTALOS INICIALES
+    ===================================== */
+
+    for (let i = 0; i < 4; i++) {
+
+        setTimeout(
+            createPetal,
+            i * 700
+        );
+    }
+
+
+    /* =====================================
+       PALABRAS INICIALES
+    ===================================== */
 
     setTimeout(
-        createFloatingWord,
-        1000
-    );
-
-
-    setTimeout(
-        createFloatingWord,
-        1800
-    );
-
-
-    setTimeout(
-        createFallingPetal,
-        500
-    );
-
-
-    setTimeout(
-        createFallingPetal,
-        1000
-    );
-
-
-    setTimeout(
-        createFallingPetal,
+        createWord,
         1500
     );
 
 
+    /* =====================================
+       EVITAR ZOOM ACCIDENTAL EN IOS
+    ===================================== */
+
+    document.addEventListener(
+        "gesturestart",
+        function (event) {
+            event.preventDefault();
+        }
+    );
+
+
+    /* =====================================
+       MENSAJE EN CONSOLA
+    ===================================== */
+
     console.log(
-        "🌻 Girasol cargado correctamente."
+        "🌻 Página cargada correctamente."
     );
 
 });
-
-}
