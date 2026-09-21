@@ -6,40 +6,40 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
-:root {
-    --gold: #ffd83d;
-    --gold-light: #fff1a3;
-    --yellow: #ffc400;
-    --orange: #f39a00;
-    --dark: #070502;
+html {
+    width: 100%;
+    min-height: 100%;
+    background: #050302;
 }
 
-html,
 body {
     width: 100%;
-    height: 100%;
-}
+    min-height: 100vh;
+    min-height: 100dvh;
 
-body {
     overflow: hidden;
+
     font-family: "Poppins", sans-serif;
     color: white;
 
     background:
         radial-gradient(
             circle at 50% 35%,
-            #3b2604 0%,
-            #1c1203 30%,
-            #090703 65%,
-            #030302 100%
+            #382304 0%,
+            #1c1102 28%,
+            #090603 65%,
+            #020201 100%
         );
+
+    touch-action: manipulation;
 }
 
 
 /* =====================================================
-   CANVAS / EFECTOS
+   CAPAS
 ===================================================== */
 
 #sparksCanvas {
@@ -50,14 +50,17 @@ body {
     height: 100%;
 
     pointer-events: none;
-    z-index: 0;
+
+    z-index: 1;
 }
 
 #petalsContainer,
-#wordsContainer,
-#sparksContainer {
+#wordsContainer {
     position: fixed;
     inset: 0;
+
+    width: 100%;
+    height: 100%;
 
     pointer-events: none;
 }
@@ -67,110 +70,121 @@ body {
 }
 
 #wordsContainer {
-    z-index: 3;
+    z-index: 4;
 }
 
-#sparksContainer {
-    z-index: 50;
+#touchParticles {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    pointer-events: none;
+
+    z-index: 99999;
 }
 
 
 /* =====================================================
-   PANTALLA DE BIENVENIDA
+   PANTALLA DE INICIO
 ===================================================== */
 
 .welcome-screen {
     position: fixed;
     inset: 0;
 
+    width: 100%;
+    height: 100dvh;
+
     display: flex;
     align-items: center;
     justify-content: center;
 
+    padding: 20px;
+
     background:
         radial-gradient(
             circle,
-            rgba(255, 193, 7, .18),
+            rgba(255,193,7,.16),
             #050403 70%
         );
 
-    z-index: 100;
+    z-index: 1000;
 
     transition:
-        opacity .7s ease,
-        visibility .7s ease;
+        opacity .5s ease,
+        visibility .5s ease;
 }
 
 .welcome-screen.hide {
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
 }
 
 .welcome-card {
-    width: min(90%, 420px);
+    width: min(100%, 390px);
 
-    padding: 42px 30px;
+    padding: 32px 22px;
 
     text-align: center;
 
-    border-radius: 30px;
+    border-radius: 26px;
 
-    border: 1px solid rgba(255, 213, 74, .3);
+    border: 1px solid
+        rgba(255,213,74,.3);
 
     background:
-        rgba(20, 13, 2, .88);
+        rgba(18,12,2,.94);
 
     box-shadow:
-        0 0 60px rgba(255, 193, 7, .15);
+        0 0 50px
+        rgba(255,193,7,.15);
 
-    backdrop-filter: blur(15px);
-
-    animation:
-        welcomeFloat 4s ease-in-out infinite;
-}
-
-@keyframes welcomeFloat {
-
-    50% {
-        transform: translateY(-8px);
-    }
-
+    backdrop-filter: blur(12px);
 }
 
 .mini-sunflower {
-    font-size: 75px;
+    font-size: 65px;
 
-    margin-bottom: 5px;
+    line-height: 1;
+
+    margin-bottom: 12px;
 
     filter:
         drop-shadow(
-            0 0 20px
-            rgba(255, 193, 7, .65)
+            0 0 18px
+            rgba(255,193,7,.6)
         );
 }
 
 .welcome-card h1 {
     font-family: "Caveat", cursive;
 
-    font-size: clamp(45px, 10vw, 65px);
+    font-size: clamp(42px, 12vw, 62px);
 
     line-height: 1;
 
-    color: var(--gold-light);
+    color: #fff1a3;
 }
 
 .welcome-card p {
-    margin: 10px 0 28px;
+    margin: 14px 0 24px;
 
-    color: #ddd;
+    color: rgba(255,255,255,.78);
+
+    font-size: 13px;
 
     line-height: 1.6;
 }
 
 #startButton {
-    border: none;
+    border: 0;
 
-    padding: 14px 28px;
+    padding: 13px 25px;
+
+    min-height: 48px;
 
     border-radius: 50px;
 
@@ -181,68 +195,65 @@ body {
             #f2a500
         );
 
-    color: #241700;
+    color: #251800;
 
     font-weight: 700;
+
+    font-size: 14px;
 
     cursor: pointer;
 
     box-shadow:
-        0 10px 35px
-        rgba(255, 193, 7, .3);
-
-    transition: .3s;
-}
-
-#startButton:hover {
-    transform:
-        translateY(-3px)
-        scale(1.03);
+        0 8px 28px
+        rgba(255,193,7,.25);
 }
 
 
 /* =====================================================
-   BOTÓN DE MÚSICA
+   BOTÓN MÚSICA
 ===================================================== */
 
 .music-button {
     position: fixed;
 
-    top: 18px;
-    right: 18px;
+    top: max(14px, env(safe-area-inset-top));
+    right: 14px;
 
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
 
     border-radius: 50%;
 
-    border: 1px solid
-        rgba(255, 213, 74, .35);
+    border:
+        1px solid
+        rgba(255,213,74,.35);
 
     background:
-        rgba(0, 0, 0, .45);
+        rgba(0,0,0,.5);
 
     color: white;
 
-    font-size: 19px;
+    font-size: 17px;
+
+    z-index: 200;
 
     cursor: pointer;
 
-    z-index: 60;
-
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
 }
 
 
 /* =====================================================
-   CONTENIDO PRINCIPAL
+   CONTENIDO
 ===================================================== */
 
 .main-content {
     position: relative;
 
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
+
+    overflow: hidden;
 
     z-index: 5;
 }
@@ -250,20 +261,27 @@ body {
 .top-text {
     position: absolute;
 
-    top: 25px;
+    top: max(16px, env(safe-area-inset-top));
+
     left: 50%;
 
     transform:
         translateX(-50%);
 
+    width: calc(100% - 110px);
+
+    text-align: center;
+
     color:
-        rgba(255, 213, 74, .65);
+        rgba(255,213,74,.6);
 
-    font-size: 10px;
+    font-size: 8px;
 
-    letter-spacing: 4px;
+    letter-spacing: 2.5px;
 
     white-space: nowrap;
+
+    overflow: hidden;
 
     z-index: 30;
 }
@@ -273,21 +291,11 @@ body {
    HERO
 ===================================================== */
 
-/*
-    IMPORTANTE:
-
-    Ahora el contenido está organizado
-    verticalmente y el texto tiene su
-    propio espacio.
-
-    Ya no se monta sobre el girasol.
-*/
-
 .hero {
     position: relative;
 
     width: 100%;
-    height: 100vh;
+    height: 100%;
 
     display: flex;
 
@@ -297,9 +305,22 @@ body {
 
     justify-content: flex-start;
 
-    padding-top: clamp(75px, 10vh, 105px);
+    /*
+       Usamos dvh para que funcione
+       correctamente en navegadores móviles.
+    */
 
-    z-index: 5;
+    padding-top:
+        clamp(
+            70px,
+            11dvh,
+            105px
+        );
+
+    padding-left: 12px;
+    padding-right: 12px;
+
+    z-index: 10;
 }
 
 
@@ -310,17 +331,22 @@ body {
 .sunflower {
     position: relative;
 
-    width: clamp(
-        255px,
-        39vw,
-        335px
-    );
+    /*
+       Tamaño responsive.
+       Nunca será demasiado grande.
+    */
 
-    height: clamp(
-        255px,
-        39vw,
-        335px
-    );
+    width:
+        min(
+            70vw,
+            300px
+        );
+
+    height:
+        min(
+            70vw,
+            300px
+        );
 
     flex-shrink: 0;
 
@@ -337,13 +363,14 @@ body {
 
     0%,
     100% {
-        transform: translateY(0);
+        transform:
+            translateY(0);
     }
 
     50% {
-        transform: translateY(-5px);
+        transform:
+            translateY(-4px);
     }
-
 }
 
 
@@ -354,38 +381,27 @@ body {
 .flower-glow {
     position: absolute;
 
-    width: 135%;
-    height: 135%;
+    left: -15%;
+    top: -15%;
 
-    left: -17.5%;
-    top: -17.5%;
+    width: 130%;
+    height: 130%;
 
     border-radius: 50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(255, 193, 7, .25) 0%,
-            rgba(255, 193, 7, .1) 40%,
+            rgba(255,193,7,.25),
+            rgba(255,193,7,.08) 40%,
             transparent 70%
         );
 
     filter: blur(12px);
 
-    z-index: -3;
+    z-index: -1;
 
-    animation:
-        glowPulse
-        3s ease-in-out infinite;
-}
-
-@keyframes glowPulse {
-
-    50% {
-        transform: scale(1.08);
-        opacity: .7;
-    }
-
+    pointer-events: none;
 }
 
 
@@ -398,18 +414,13 @@ body {
 
     inset: 0;
 
+    width: 100%;
+    height: 100%;
+
     z-index: 2;
+
+    pointer-events: none;
 }
-
-
-/*
-    AQUÍ ESTÁ UNA DE LAS CORRECCIONES IMPORTANTES.
-
-    Los pétalos son más anchos y se acercan
-    bastante más al centro.
-
-    Antes quedaba demasiado espacio vacío.
-*/
 
 .petal {
     position: absolute;
@@ -417,34 +428,55 @@ body {
     left: 50%;
     top: 50%;
 
-    width: 72px;
-    height: 132px;
+    width:
+        clamp(
+            48px,
+            15vw,
+            70px
+        );
 
-    margin-left: -36px;
-    margin-top: -66px;
+    height:
+        clamp(
+            88px,
+            29vw,
+            130px
+        );
+
+    margin-left:
+        clamp(
+            -35px,
+            -7.5vw,
+            -24px
+        );
+
+    margin-top:
+        clamp(
+            -65px,
+            -14.5vw,
+            -44px
+        );
 
     border-radius:
         52%
         52%
-        46%
-        46%;
+        45%
+        45%;
 
     background:
         linear-gradient(
             180deg,
             #fff39a 0%,
-            #ffdf4d 24%,
+            #ffdf4d 25%,
             #ffc21a 60%,
             #f29b00 100%
         );
 
     box-shadow:
-
         inset
-        0 0 9px
-        rgba(255,255,255,.25),
+        0 0 8px
+        rgba(255,255,255,.22),
 
-        0 0 12px
+        0 0 10px
         rgba(255,193,7,.12);
 
     transform-origin:
@@ -455,110 +487,29 @@ body {
 
 
 /*
-    16 pétalos.
-    El desplazamiento es MENOR que antes,
-    así se cierra la flor.
+   Mais compacto para o celular.
 */
 
-.p1 {
-    transform:
-        rotate(0deg)
-        translateY(-76px);
-}
-
-.p2 {
-    transform:
-        rotate(22.5deg)
-        translateY(-76px);
-}
-
-.p3 {
-    transform:
-        rotate(45deg)
-        translateY(-76px);
-}
-
-.p4 {
-    transform:
-        rotate(67.5deg)
-        translateY(-76px);
-}
-
-.p5 {
-    transform:
-        rotate(90deg)
-        translateY(-76px);
-}
-
-.p6 {
-    transform:
-        rotate(112.5deg)
-        translateY(-76px);
-}
-
-.p7 {
-    transform:
-        rotate(135deg)
-        translateY(-76px);
-}
-
-.p8 {
-    transform:
-        rotate(157.5deg)
-        translateY(-76px);
-}
-
-.p9 {
-    transform:
-        rotate(180deg)
-        translateY(-76px);
-}
-
-.p10 {
-    transform:
-        rotate(202.5deg)
-        translateY(-76px);
-}
-
-.p11 {
-    transform:
-        rotate(225deg)
-        translateY(-76px);
-}
-
-.p12 {
-    transform:
-        rotate(247.5deg)
-        translateY(-76px);
-}
-
-.p13 {
-    transform:
-        rotate(270deg)
-        translateY(-76px);
-}
-
-.p14 {
-    transform:
-        rotate(292.5deg)
-        translateY(-76px);
-}
-
-.p15 {
-    transform:
-        rotate(315deg)
-        translateY(-76px);
-}
-
-.p16 {
-    transform:
-        rotate(337.5deg)
-        translateY(-76px);
-}
+.p1  { transform: rotate(0deg) translateY(-61px); }
+.p2  { transform: rotate(22.5deg) translateY(-61px); }
+.p3  { transform: rotate(45deg) translateY(-61px); }
+.p4  { transform: rotate(67.5deg) translateY(-61px); }
+.p5  { transform: rotate(90deg) translateY(-61px); }
+.p6  { transform: rotate(112.5deg) translateY(-61px); }
+.p7  { transform: rotate(135deg) translateY(-61px); }
+.p8  { transform: rotate(157.5deg) translateY(-61px); }
+.p9  { transform: rotate(180deg) translateY(-61px); }
+.p10 { transform: rotate(202.5deg) translateY(-61px); }
+.p11 { transform: rotate(225deg) translateY(-61px); }
+.p12 { transform: rotate(247.5deg) translateY(-61px); }
+.p13 { transform: rotate(270deg) translateY(-61px); }
+.p14 { transform: rotate(292.5deg) translateY(-61px); }
+.p15 { transform: rotate(315deg) translateY(-61px); }
+.p16 { transform: rotate(337.5deg) translateY(-61px); }
 
 
 /* =====================================================
-   CENTRO DEL GIRASOL
+   CENTRO
 ===================================================== */
 
 .flower-center {
@@ -567,156 +518,92 @@ body {
     left: 50%;
     top: 50%;
 
-    width: 118px;
-    height: 118px;
+    width:
+        clamp(
+            82px,
+            27vw,
+            115px
+        );
+
+    height:
+        clamp(
+            82px,
+            27vw,
+            115px
+        );
 
     transform:
         translate(-50%, -50%);
 
     border-radius: 50%;
 
-    /*
-        CENTRO MÁS NATURAL
-    */
-
     background:
         radial-gradient(
             circle at 38% 32%,
-            #80551b 0%,
-            #56340b 22%,
-            #2e1a05 55%,
+            #80551b,
+            #56340b 25%,
+            #2e1a05 58%,
             #120a02 100%
         );
-
-    /*
-        IMPORTANTE:
-        queda por encima de los pétalos.
-    */
 
     z-index: 20;
 
     box-shadow:
-
         inset
         0 0 20px
         rgba(0,0,0,.75),
 
-        0 5px 20px
-        rgba(0,0,0,.7);
+        0 4px 18px
+        rgba(0,0,0,.6);
 }
 
 
 /* =====================================================
-   SEMILLAS
+   TEXTO
 ===================================================== */
-
-.seed {
-    position: absolute;
-
-    width: 7px;
-    height: 12px;
-
-    border-radius: 50%;
-
-    background:
-        #b97b19;
-
-    opacity: .9;
-
-    box-shadow:
-        0 0 4px
-        rgba(255,193,7,.15);
-}
-
-.s1  { left: 50%; top: 15%; }
-.s2  { left: 35%; top: 22%; }
-.s3  { left: 65%; top: 22%; }
-
-.s4  { left: 22%; top: 42%; }
-.s5  { left: 78%; top: 42%; }
-
-.s6  { left: 35%; top: 63%; }
-.s7  { left: 65%; top: 63%; }
-
-.s8  { left: 50%; top: 77%; }
-
-.s9  { left: 50%; top: 37%; }
-
-.s10 { left: 40%; top: 49%; }
-.s11 { left: 60%; top: 49%; }
-
-.s12 { left: 40%; top: 37%; }
-.s13 { left: 60%; top: 37%; }
-
-.s14 { left: 50%; top: 58%; }
-
-.s15 { left: 43%; top: 69%; }
-.s16 { left: 57%; top: 69%; }
-
-
-/* =====================================================
-   TEXTO PRINCIPAL
-===================================================== */
-
-/*
-    ESTA ES LA SEGUNDA CORRECCIÓN GRANDE.
-
-    El texto NO está dentro del girasol.
-
-    Tiene espacio propio y siempre aparece
-    debajo de la flor.
-*/
 
 .hero-text {
     position: relative;
 
-    width: min(
-        95%,
-        750px
-    );
+    width:
+        min(
+            100%,
+            600px
+        );
+
+    flex-shrink: 0;
+
+    margin-top:
+        clamp(
+            12px,
+            2vh,
+            20px
+        );
 
     text-align: center;
 
     z-index: 30;
-
-    margin-top: 18px;
-
-    padding-bottom: 20px;
 }
 
-
-/* =====================================================
-   TÍTULO
-===================================================== */
-
 .main-title {
-    position: relative;
-
     font-family:
         "Caveat",
         cursive;
 
     font-size:
         clamp(
-            48px,
-            7vw,
-            74px
+            42px,
+            12vw,
+            70px
         );
 
     font-weight: 700;
 
-    line-height: 1;
+    line-height: .95;
 
-    color:
-        var(--gold-light);
-
-    /*
-        Ahora tiene glow pero sin
-        desaparecer detrás de la flor.
-    */
+    color: #fff1a3;
 
     text-shadow:
-
         0 0 8px
         rgba(255,213,74,.65),
 
@@ -724,39 +611,29 @@ body {
         rgba(255,174,0,.3);
 }
 
-.main-title span {
-    font-size: .55em;
-}
-
-
-/* =====================================================
-   SUBTÍTULO
-===================================================== */
-
 .subtitle {
-    margin-top: 10px;
+    margin-top: 8px;
 
     color:
-        rgba(
-            255,
-            255,
-            255,
-            .75
+        rgba(255,255,255,.75);
+
+    font-size:
+        clamp(
+            9px,
+            2.8vw,
+            13px
         );
 
-    font-size: 13px;
-
-    line-height: 1.5;
+    line-height: 1.4;
 }
 
 .subtitle b {
-    color:
-        var(--gold);
+    color: #ffd83d;
 }
 
 
 /* =====================================================
-   BOTÓN
+   BOTÓN TOCAR
 ===================================================== */
 
 .touch-hint {
@@ -765,12 +642,12 @@ body {
     align-items: center;
     justify-content: center;
 
-    margin-top: 17px;
+    margin-top: 13px;
+
+    min-height: 42px;
 
     padding:
-        11px 24px;
-
-    min-width: 180px;
+        9px 20px;
 
     border-radius: 50px;
 
@@ -779,83 +656,17 @@ body {
         rgba(255,213,74,.45);
 
     background:
-        rgba(30,20,3,.65);
+        rgba(30,20,3,.7);
 
-    color:
-        var(--gold);
+    color: #ffd83d;
+
+    font-size: 11px;
 
     cursor: pointer;
-
-    font-family:
-        "Poppins",
-        sans-serif;
-
-    font-size: 12px;
 
     box-shadow:
         0 0 18px
         rgba(255,193,7,.08);
-
-    transition:
-        transform .25s ease,
-        background .25s ease,
-        box-shadow .25s ease;
-}
-
-.touch-hint:hover {
-    transform:
-        translateY(-3px);
-
-    background:
-        rgba(255,193,7,.12);
-
-    box-shadow:
-        0 0 25px
-        rgba(255,193,7,.18);
-}
-
-
-/* =====================================================
-   PÉTALOS FLOTANTES
-===================================================== */
-
-.falling-petal {
-    position: fixed;
-
-    top: -50px;
-
-    color:
-        var(--gold);
-
-    pointer-events: none;
-
-    animation:
-        falling
-        linear
-        forwards;
-}
-
-@keyframes falling {
-
-    0% {
-        transform:
-            translateY(-50px)
-            rotate(0deg);
-
-        opacity: 0;
-    }
-
-    10% {
-        opacity: 1;
-    }
-
-    100% {
-        transform:
-            translateY(110vh)
-            rotate(500deg);
-
-        opacity: 0;
-    }
 }
 
 
@@ -875,15 +686,25 @@ body {
         "Caveat",
         cursive;
 
-    font-size: 25px;
+    font-size:
+        clamp(
+            19px,
+            6vw,
+            28px
+        );
 
     white-space: nowrap;
 
     animation:
         wordFloat
-        5s
-        ease-out
+        5s ease-out
         forwards;
+
+    pointer-events: none;
+
+    text-shadow:
+        0 0 8px
+        rgba(255,193,7,.3);
 }
 
 @keyframes wordFloat {
@@ -902,9 +723,9 @@ body {
 
     100% {
         transform:
-            translateY(-110vh)
+            translateY(-110dvh)
             translateX(var(--move))
-            scale(1.15);
+            scale(1.1);
 
         opacity: 0;
     }
@@ -912,38 +733,39 @@ body {
 
 
 /* =====================================================
-   CHISPAS
+   PÉTALOS QUE CAEN
 ===================================================== */
 
-.spark {
+.falling-petal {
     position: fixed;
 
-    font-size: 22px;
+    top: -50px;
+
+    pointer-events: none;
 
     animation:
-        sparkAnimation
-        .9s
-        ease-out
-        forwards;
+        falling
+        linear forwards;
 }
 
-@keyframes sparkAnimation {
+@keyframes falling {
 
     0% {
         transform:
-            translate(0,0)
-            scale(.5);
+            translateY(-50px)
+            rotate(0deg);
 
+        opacity: 0;
+    }
+
+    10% {
         opacity: 1;
     }
 
     100% {
         transform:
-            translate(
-                var(--x),
-                var(--y)
-            )
-            scale(1.4);
+            translateY(110dvh)
+            rotate(500deg);
 
         opacity: 0;
     }
@@ -951,7 +773,7 @@ body {
 
 
 /* =====================================================
-   MODAL / CARTA
+   CARTA
 ===================================================== */
 
 .modal {
@@ -959,26 +781,29 @@ body {
 
     inset: 0;
 
+    width: 100%;
+    height: 100dvh;
+
     display: flex;
 
     align-items: center;
     justify-content: center;
 
-    padding: 20px;
+    padding:
+        20px;
 
     background:
-        rgba(0,0,0,.78);
+        rgba(0,0,0,.8);
 
     backdrop-filter:
         blur(8px);
 
     opacity: 0;
-
     visibility: hidden;
 
-    transition: .35s;
+    transition: .3s;
 
-    z-index: 80;
+    z-index: 500;
 }
 
 .modal.active {
@@ -992,19 +817,22 @@ body {
     width:
         min(
             100%,
-            480px
+            450px
         );
 
-    max-height: 90vh;
+    max-height:
+        calc(
+            100dvh - 40px
+        );
 
     overflow-y: auto;
 
     padding:
-        40px 28px;
+        35px 23px;
+
+    border-radius: 25px;
 
     text-align: center;
-
-    border-radius: 28px;
 
     border:
         1px solid
@@ -1018,14 +846,14 @@ body {
         );
 
     box-shadow:
-        0 0 65px
+        0 0 50px
         rgba(255,193,7,.15);
 
     transform:
-        translateY(25px)
-        scale(.96);
+        translateY(20px)
+        scale(.97);
 
-    transition: .35s;
+    transition: .3s;
 }
 
 .modal.active .letter-card {
@@ -1037,13 +865,13 @@ body {
 .close-button {
     position: absolute;
 
-    top: 14px;
-    right: 16px;
+    top: 10px;
+    right: 12px;
 
     width: 36px;
     height: 36px;
 
-    border: none;
+    border: 0;
 
     border-radius: 50%;
 
@@ -1052,13 +880,11 @@ body {
 
     color: white;
 
-    font-size: 24px;
-
-    cursor: pointer;
+    font-size: 22px;
 }
 
 .letter-flower {
-    font-size: 55px;
+    font-size: 48px;
 }
 
 .letter-card h2 {
@@ -1066,213 +892,144 @@ body {
         "Caveat",
         cursive;
 
-    font-size: 45px;
+    font-size: 40px;
 
-    color:
-        var(--gold-light);
+    color: #fff1a3;
 }
 
 .letter-line {
-    width: 70px;
+    width: 60px;
     height: 2px;
 
     margin:
-        14px auto 24px;
+        12px auto 20px;
 
-    background:
-        var(--gold);
+    background: #ffd83d;
 }
 
 .letter-card p {
-    margin-bottom: 18px;
+    margin-bottom: 15px;
 
     color: #ddd;
 
-    font-size: 14px;
+    font-size: 13px;
 
-    line-height: 1.8;
+    line-height: 1.75;
 }
 
 .final-message {
-    color:
-        var(--gold-light) !important;
+    color: #fff1a3 !important;
 
     font-family:
         "Caveat",
         cursive;
 
     font-size:
-        23px !important;
+        22px !important;
 }
 
 
 /* =====================================================
-   RESPONSIVE - CELULAR
+   TELÉFONOS MUY PEQUEÑOS
 ===================================================== */
 
-@media (max-width: 600px) {
+@media (max-height: 700px) and (max-width: 600px) {
 
     .hero {
-        padding-top: 70px;
+        padding-top: 58px;
     }
 
     .sunflower {
-
-        width: 255px;
-        height: 255px;
-
+        width: 205px;
+        height: 205px;
     }
 
     .petal {
+        width: 43px;
+        height: 82px;
 
-        width: 55px;
-        height: 105px;
-
-        margin-left: -27.5px;
-        margin-top: -52.5px;
-
+        margin-left: -21.5px;
+        margin-top: -41px;
     }
 
-    .p1  { transform: rotate(0deg) translateY(-61px); }
-    .p2  { transform: rotate(22.5deg) translateY(-61px); }
-    .p3  { transform: rotate(45deg) translateY(-61px); }
-    .p4  { transform: rotate(67.5deg) translateY(-61px); }
-    .p5  { transform: rotate(90deg) translateY(-61px); }
-    .p6  { transform: rotate(112.5deg) translateY(-61px); }
-    .p7  { transform: rotate(135deg) translateY(-61px); }
-    .p8  { transform: rotate(157.5deg) translateY(-61px); }
-    .p9  { transform: rotate(180deg) translateY(-61px); }
-    .p10 { transform: rotate(202.5deg) translateY(-61px); }
-    .p11 { transform: rotate(225deg) translateY(-61px); }
-    .p12 { transform: rotate(247.5deg) translateY(-61px); }
-    .p13 { transform: rotate(270deg) translateY(-61px); }
-    .p14 { transform: rotate(292.5deg) translateY(-61px); }
-    .p15 { transform: rotate(315deg) translateY(-61px); }
-    .p16 { transform: rotate(337.5deg) translateY(-61px); }
+    .p1  { transform: rotate(0deg) translateY(-50px); }
+    .p2  { transform: rotate(22.5deg) translateY(-50px); }
+    .p3  { transform: rotate(45deg) translateY(-50px); }
+    .p4  { transform: rotate(67.5deg) translateY(-50px); }
+    .p5  { transform: rotate(90deg) translateY(-50px); }
+    .p6  { transform: rotate(112.5deg) translateY(-50px); }
+    .p7  { transform: rotate(135deg) translateY(-50px); }
+    .p8  { transform: rotate(157.5deg) translateY(-50px); }
+    .p9  { transform: rotate(180deg) translateY(-50px); }
+    .p10 { transform: rotate(202.5deg) translateY(-50px); }
+    .p11 { transform: rotate(225deg) translateY(-50px); }
+    .p12 { transform: rotate(247.5deg) translateY(-50px); }
+    .p13 { transform: rotate(270deg) translateY(-50px); }
+    .p14 { transform: rotate(292.5deg) translateY(-50px); }
+    .p15 { transform: rotate(315deg) translateY(-50px); }
+    .p16 { transform: rotate(337.5deg) translateY(-50px); }
 
     .flower-center {
-
-        width: 91px;
-        height: 91px;
-
+        width: 70px;
+        height: 70px;
     }
 
     .hero-text {
-
-        margin-top: 13px;
-
-        width: 94%;
-
+        margin-top: 7px;
     }
 
     .main-title {
-
-        font-size: 50px;
-
+        font-size: 40px;
     }
 
     .subtitle {
-
-        font-size: 11px;
-
+        font-size: 9px;
     }
 
     .touch-hint {
-
-        margin-top: 13px;
-
-    }
-
-    .top-text {
-
-        top: 18px;
-
-        font-size: 8px;
-
-        letter-spacing: 3px;
-
-    }
-
-}
-
-
-/* =====================================================
-   CELULARES PEQUEÑOS / POCA ALTURA
-===================================================== */
-
-@media (max-height: 700px) {
-
-    .hero {
-
-        padding-top: 60px;
-
-    }
-
-    .sunflower {
-
-        width: 220px;
-        height: 220px;
-
-    }
-
-    .petal {
-
-        width: 47px;
-        height: 91px;
-
-        margin-left: -23.5px;
-        margin-top: -45.5px;
-
-    }
-
-    .p1  { transform: rotate(0deg) translateY(-54px); }
-    .p2  { transform: rotate(22.5deg) translateY(-54px); }
-    .p3  { transform: rotate(45deg) translateY(-54px); }
-    .p4  { transform: rotate(67.5deg) translateY(-54px); }
-    .p5  { transform: rotate(90deg) translateY(-54px); }
-    .p6  { transform: rotate(112.5deg) translateY(-54px); }
-    .p7  { transform: rotate(135deg) translateY(-54px); }
-    .p8  { transform: rotate(157.5deg) translateY(-54px); }
-    .p9  { transform: rotate(180deg) translateY(-54px); }
-    .p10 { transform: rotate(202.5deg) translateY(-54px); }
-    .p11 { transform: rotate(225deg) translateY(-54px); }
-    .p12 { transform: rotate(247.5deg) translateY(-54px); }
-    .p13 { transform: rotate(270deg) translateY(-54px); }
-    .p14 { transform: rotate(292.5deg) translateY(-54px); }
-    .p15 { transform: rotate(315deg) translateY(-54px); }
-    .p16 { transform: rotate(337.5deg) translateY(-54px); }
-
-    .flower-center {
-
-        width: 80px;
-        height: 80px;
-
-    }
-
-    .hero-text {
-
-        margin-top: 8px;
-
-    }
-
-    .main-title {
-
-        font-size: 43px;
-
-    }
-
-    .subtitle {
-
+        margin-top: 7px;
+        min-height: 38px;
+        padding: 7px 17px;
         font-size: 10px;
+    }
+}
 
+
+/* =====================================================
+   PANTALLAS MUY ANCHAS
+===================================================== */
+
+@media (min-width: 800px) {
+
+    .hero {
+        padding-top: 90px;
     }
 
-    .touch-hint {
+    .sunflower {
+        width: 320px;
+        height: 320px;
+    }
 
-        margin-top: 9px;
+    .hero-text {
+        margin-top: 20px;
+    }
 
-        padding:
-            9px 20px;
+}
+
+
+/* =====================================================
+   REDUCIR ANIMACIONES
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
 
     }
 
