@@ -1,6 +1,6 @@
-/* =========================================
-   CONFIGURACIÓN GENERAL
-========================================= */
+/* =====================================================
+   RESET
+===================================================== */
 
 * {
     margin: 0;
@@ -8,287 +8,204 @@
     box-sizing: border-box;
 }
 
-
 :root {
-
-    --gold: #ffd43b;
-
-    --gold-light: #fff3a0;
-
+    --gold: #ffd83d;
+    --gold-light: #fff1a3;
     --yellow: #ffc400;
-
-    --orange: #f39b00;
-
-    --dark: #070604;
-
+    --orange: #f39a00;
+    --dark: #070502;
 }
-
 
 html,
 body {
-
     width: 100%;
     height: 100%;
-
 }
 
-
 body {
-
     overflow: hidden;
-
-    font-family:
-        "Poppins",
-        sans-serif;
-
+    font-family: "Poppins", sans-serif;
     color: white;
 
     background:
-
         radial-gradient(
             circle at 50% 35%,
-            #3a2503 0%,
-            #171003 32%,
-            #070604 72%,
-            #030303 100%
+            #3b2604 0%,
+            #1c1203 30%,
+            #090703 65%,
+            #030302 100%
         );
-
 }
 
 
-/* =========================================
-   CANVAS
-========================================= */
+/* =====================================================
+   CANVAS / EFECTOS
+===================================================== */
 
 #sparksCanvas {
-
     position: fixed;
-
     inset: 0;
 
     width: 100%;
     height: 100%;
 
     pointer-events: none;
-
     z-index: 0;
-
 }
-
-
-/* =========================================
-   CONTENEDORES DE EFECTOS
-========================================= */
 
 #petalsContainer,
 #wordsContainer,
 #sparksContainer {
-
     position: fixed;
-
     inset: 0;
 
     pointer-events: none;
-
 }
-
 
 #petalsContainer {
     z-index: 2;
 }
 
-
 #wordsContainer {
     z-index: 3;
 }
 
-
 #sparksContainer {
-    z-index: 30;
+    z-index: 50;
 }
 
 
-/* =========================================
-   PANTALLA INICIAL
-========================================= */
+/* =====================================================
+   PANTALLA DE BIENVENIDA
+===================================================== */
 
 .welcome-screen {
-
     position: fixed;
-
     inset: 0;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
     background:
-
         radial-gradient(
             circle,
-            rgba(255,193,7,.16),
-            #050504 70%
+            rgba(255, 193, 7, .18),
+            #050403 70%
         );
 
     z-index: 100;
 
     transition:
-
         opacity .7s ease,
         visibility .7s ease;
-
 }
-
 
 .welcome-screen.hide {
-
     opacity: 0;
-
     visibility: hidden;
-
 }
 
-
 .welcome-card {
-
     width: min(90%, 420px);
 
-    padding: 45px 30px;
+    padding: 42px 30px;
 
     text-align: center;
 
     border-radius: 30px;
 
-    border:
-
-        1px solid
-        rgba(255,213,74,.3);
+    border: 1px solid rgba(255, 213, 74, .3);
 
     background:
-
-        rgba(18,12,2,.82);
+        rgba(20, 13, 2, .88);
 
     box-shadow:
-
-        0 0 60px
-        rgba(255,193,7,.16);
+        0 0 60px rgba(255, 193, 7, .15);
 
     backdrop-filter: blur(15px);
 
     animation:
-
-        welcomeFloat
-        4s ease-in-out infinite;
-
+        welcomeFloat 4s ease-in-out infinite;
 }
-
 
 @keyframes welcomeFloat {
 
     50% {
-
-        transform:
-            translateY(-9px);
-
+        transform: translateY(-8px);
     }
 
 }
 
-
 .mini-sunflower {
+    font-size: 75px;
 
-    font-size: 78px;
-
-    margin-bottom: 8px;
+    margin-bottom: 5px;
 
     filter:
-
         drop-shadow(
             0 0 20px
-            rgba(255,193,7,.6)
+            rgba(255, 193, 7, .65)
         );
-
 }
-
 
 .welcome-card h1 {
+    font-family: "Caveat", cursive;
 
-    font-family:
-        "Caveat",
-        cursive;
+    font-size: clamp(45px, 10vw, 65px);
 
-    font-size:
-        clamp(45px,10vw,65px);
+    line-height: 1;
 
-    color:
-        var(--gold-light);
-
+    color: var(--gold-light);
 }
 
-
 .welcome-card p {
-
-    margin:
-
-        8px 0 28px;
+    margin: 10px 0 28px;
 
     color: #ddd;
 
     line-height: 1.6;
-
 }
 
-
 #startButton {
-
     border: none;
 
-    padding:
-
-        14px 28px;
+    padding: 14px 28px;
 
     border-radius: 50px;
 
     background:
-
         linear-gradient(
             135deg,
-            #ffe66b,
-            #f0a000
+            #ffe873,
+            #f2a500
         );
 
-    color: #211500;
+    color: #241700;
 
     font-weight: 700;
 
     cursor: pointer;
 
     box-shadow:
-
         0 10px 35px
-        rgba(255,193,7,.3);
+        rgba(255, 193, 7, .3);
 
     transition: .3s;
-
 }
 
-
 #startButton:hover {
-
     transform:
         translateY(-3px)
         scale(1.03);
-
 }
 
 
-/* =========================================
+/* =====================================================
    BOTÓN DE MÚSICA
-========================================= */
+===================================================== */
 
 .music-button {
-
     position: fixed;
 
     top: 18px;
@@ -299,14 +216,11 @@ body {
 
     border-radius: 50%;
 
-    border:
-
-        1px solid
-        rgba(255,213,74,.35);
+    border: 1px solid
+        rgba(255, 213, 74, .35);
 
     background:
-
-        rgba(0,0,0,.45);
+        rgba(0, 0, 0, .45);
 
     color: white;
 
@@ -314,53 +228,36 @@ body {
 
     cursor: pointer;
 
-    z-index: 40;
+    z-index: 60;
 
     backdrop-filter: blur(10px);
-
 }
 
 
-/* =========================================
+/* =====================================================
    CONTENIDO PRINCIPAL
-========================================= */
+===================================================== */
 
 .main-content {
-
     position: relative;
 
     width: 100%;
     height: 100vh;
 
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
     z-index: 5;
-
 }
 
-
 .top-text {
-
     position: absolute;
 
     top: 25px;
-
     left: 50%;
 
     transform:
         translateX(-50%);
 
     color:
-
-        rgba(
-            255,
-            213,
-            74,
-            .7
-        );
+        rgba(255, 213, 74, .65);
 
     font-size: 10px;
 
@@ -368,20 +265,29 @@ body {
 
     white-space: nowrap;
 
+    z-index: 30;
 }
 
 
-/* =========================================
+/* =====================================================
    HERO
-========================================= */
+===================================================== */
+
+/*
+    IMPORTANTE:
+
+    Ahora el contenido está organizado
+    verticalmente y el texto tiene su
+    propio espacio.
+
+    Ya no se monta sobre el girasol.
+*/
 
 .hero {
-
     position: relative;
 
-    width: min(95vw, 760px);
-
-    height: 90vh;
+    width: 100%;
+    height: 100vh;
 
     display: flex;
 
@@ -389,346 +295,322 @@ body {
 
     align-items: center;
 
-    justify-content: center;
+    justify-content: flex-start;
 
+    padding-top: clamp(75px, 10vh, 105px);
+
+    z-index: 5;
 }
 
 
-/* =========================================
+/* =====================================================
    GIRASOL
-========================================= */
+===================================================== */
 
 .sunflower {
-
     position: relative;
 
-    width:
-        clamp(
-            260px,
-            43vw,
-            350px
-        );
+    width: clamp(
+        255px,
+        39vw,
+        335px
+    );
 
-    height:
-        clamp(
-            260px,
-            43vw,
-            350px
-        );
+    height: clamp(
+        255px,
+        39vw,
+        335px
+    );
 
     flex-shrink: 0;
 
     cursor: pointer;
 
-    z-index: 5;
+    z-index: 10;
 
     animation:
-
         sunflowerFloat
         5s ease-in-out infinite;
-
 }
-
 
 @keyframes sunflowerFloat {
 
     0%,
     100% {
-
-        transform:
-            translateY(0);
-
+        transform: translateY(0);
     }
 
     50% {
-
-        transform:
-            translateY(-7px);
-
+        transform: translateY(-5px);
     }
 
 }
 
 
-/* =========================================
-   AURA DEL GIRASOL
-========================================= */
+/* =====================================================
+   AURA
+===================================================== */
 
 .flower-glow {
-
     position: absolute;
 
-    width: 125%;
-    height: 125%;
+    width: 135%;
+    height: 135%;
 
-    left: -12.5%;
-    top: -12.5%;
+    left: -17.5%;
+    top: -17.5%;
 
     border-radius: 50%;
 
     background:
-
         radial-gradient(
             circle,
-            rgba(255,193,7,.2),
-            transparent 67%
+            rgba(255, 193, 7, .25) 0%,
+            rgba(255, 193, 7, .1) 40%,
+            transparent 70%
         );
 
-    filter: blur(10px);
+    filter: blur(12px);
 
-    z-index: -2;
+    z-index: -3;
 
     animation:
-
         glowPulse
         3s ease-in-out infinite;
-
 }
-
 
 @keyframes glowPulse {
 
     50% {
-
-        transform: scale(1.1);
-
+        transform: scale(1.08);
         opacity: .7;
-
     }
 
 }
 
 
-/* =========================================
+/* =====================================================
    PÉTALOS
-========================================= */
+===================================================== */
 
 .petals {
-
     position: absolute;
 
     inset: 0;
 
-    z-index: 1;
-
+    z-index: 2;
 }
 
 
 /*
-   IMPORTANTE:
+    AQUÍ ESTÁ UNA DE LAS CORRECCIONES IMPORTANTES.
 
-   Todos los pétalos nacen exactamente
-   desde el centro del girasol.
+    Los pétalos son más anchos y se acercan
+    bastante más al centro.
+
+    Antes quedaba demasiado espacio vacío.
 */
 
 .petal {
-
     position: absolute;
 
     left: 50%;
     top: 50%;
 
-    width: 66px;
-    height: 135px;
+    width: 72px;
+    height: 132px;
 
-    margin-left: -33px;
-    margin-top: -67.5px;
+    margin-left: -36px;
+    margin-top: -66px;
 
     border-radius:
-
-        60%
-        60%
-        48%
-        48%;
+        52%
+        52%
+        46%
+        46%;
 
     background:
-
         linear-gradient(
-
             180deg,
-
-            #fff28a 0%,
-
-            #ffd83d 35%,
-
-            #ffb000 72%,
-
-            #ed9000 100%
-
+            #fff39a 0%,
+            #ffdf4d 24%,
+            #ffc21a 60%,
+            #f29b00 100%
         );
 
     box-shadow:
 
         inset
-        0 0 10px
+        0 0 9px
         rgba(255,255,255,.25),
 
         0 0 12px
-        rgba(255,193,7,.14);
+        rgba(255,193,7,.12);
 
     transform-origin:
         center center;
 
+    z-index: 2;
 }
 
 
 /*
-   16 pétalos perfectamente
-   distribuidos alrededor.
+    16 pétalos.
+    El desplazamiento es MENOR que antes,
+    así se cierra la flor.
 */
 
 .p1 {
     transform:
         rotate(0deg)
-        translateY(-91px);
+        translateY(-76px);
 }
 
 .p2 {
     transform:
         rotate(22.5deg)
-        translateY(-91px);
+        translateY(-76px);
 }
 
 .p3 {
     transform:
         rotate(45deg)
-        translateY(-91px);
+        translateY(-76px);
 }
 
 .p4 {
     transform:
         rotate(67.5deg)
-        translateY(-91px);
+        translateY(-76px);
 }
 
 .p5 {
     transform:
         rotate(90deg)
-        translateY(-91px);
+        translateY(-76px);
 }
 
 .p6 {
     transform:
         rotate(112.5deg)
-        translateY(-91px);
+        translateY(-76px);
 }
 
 .p7 {
     transform:
         rotate(135deg)
-        translateY(-91px);
+        translateY(-76px);
 }
 
 .p8 {
     transform:
         rotate(157.5deg)
-        translateY(-91px);
+        translateY(-76px);
 }
 
 .p9 {
     transform:
         rotate(180deg)
-        translateY(-91px);
+        translateY(-76px);
 }
 
 .p10 {
     transform:
         rotate(202.5deg)
-        translateY(-91px);
+        translateY(-76px);
 }
 
 .p11 {
     transform:
         rotate(225deg)
-        translateY(-91px);
+        translateY(-76px);
 }
 
 .p12 {
     transform:
         rotate(247.5deg)
-        translateY(-91px);
+        translateY(-76px);
 }
 
 .p13 {
     transform:
         rotate(270deg)
-        translateY(-91px);
+        translateY(-76px);
 }
 
 .p14 {
     transform:
         rotate(292.5deg)
-        translateY(-91px);
+        translateY(-76px);
 }
 
 .p15 {
     transform:
         rotate(315deg)
-        translateY(-91px);
+        translateY(-76px);
 }
 
 .p16 {
     transform:
         rotate(337.5deg)
-        translateY(-91px);
+        translateY(-76px);
 }
 
 
-/* =========================================
+/* =====================================================
    CENTRO DEL GIRASOL
-========================================= */
+===================================================== */
 
 .flower-center {
-
     position: absolute;
 
     left: 50%;
     top: 50%;
 
-    width: 122px;
-    height: 122px;
+    width: 118px;
+    height: 118px;
 
     transform:
         translate(-50%, -50%);
 
     border-radius: 50%;
 
-    z-index: 10;
+    /*
+        CENTRO MÁS NATURAL
+    */
 
     background:
-
         radial-gradient(
-
-            circle at 35% 28%,
-
-            #765018 0%,
-
-            #4a2c08 30%,
-
-            #241504 65%,
-
-            #100a02 100%
-
+            circle at 38% 32%,
+            #80551b 0%,
+            #56340b 22%,
+            #2e1a05 55%,
+            #120a02 100%
         );
+
+    /*
+        IMPORTANTE:
+        queda por encima de los pétalos.
+    */
+
+    z-index: 20;
 
     box-shadow:
 
         inset
         0 0 20px
-        rgba(0,0,0,.8),
+        rgba(0,0,0,.75),
 
-        0 4px 18px
+        0 5px 20px
         rgba(0,0,0,.7);
-
 }
 
 
-/* =========================================
+/* =====================================================
    SEMILLAS
-========================================= */
+===================================================== */
 
 .seed {
-
     position: absolute;
 
     width: 7px;
@@ -736,69 +618,79 @@ body {
 
     border-radius: 50%;
 
-    background: #ae761a;
+    background:
+        #b97b19;
+
+    opacity: .9;
 
     box-shadow:
-
-        0 0 5px
-        rgba(255,193,7,.12);
-
-    opacity: .85;
-
+        0 0 4px
+        rgba(255,193,7,.15);
 }
 
+.s1  { left: 50%; top: 15%; }
+.s2  { left: 35%; top: 22%; }
+.s3  { left: 65%; top: 22%; }
 
-.s1  { left:50%; top:16%; }
-.s2  { left:34%; top:24%; }
-.s3  { left:66%; top:24%; }
+.s4  { left: 22%; top: 42%; }
+.s5  { left: 78%; top: 42%; }
 
-.s4  { left:22%; top:43%; }
-.s5  { left:78%; top:43%; }
+.s6  { left: 35%; top: 63%; }
+.s7  { left: 65%; top: 63%; }
 
-.s6  { left:34%; top:62%; }
-.s7  { left:66%; top:62%; }
+.s8  { left: 50%; top: 77%; }
 
-.s8  { left:50%; top:76%; }
+.s9  { left: 50%; top: 37%; }
 
-.s9  { left:50%; top:39%; }
+.s10 { left: 40%; top: 49%; }
+.s11 { left: 60%; top: 49%; }
 
-.s10 { left:40%; top:50%; }
-.s11 { left:60%; top:50%; }
+.s12 { left: 40%; top: 37%; }
+.s13 { left: 60%; top: 37%; }
 
-.s12 { left:39%; top:38%; }
-.s13 { left:61%; top:38%; }
+.s14 { left: 50%; top: 58%; }
 
-.s14 { left:50%; top:58%; }
-
-.s15 { left:43%; top:69%; }
-.s16 { left:57%; top:69%; }
+.s15 { left: 43%; top: 69%; }
+.s16 { left: 57%; top: 69%; }
 
 
-/* =========================================
-   TEXTO
-========================================= */
+/* =====================================================
+   TEXTO PRINCIPAL
+===================================================== */
 
 /*
-   ESTA PARTE QUEDA DESPUÉS DEL GIRASOL.
-   Ya no se mete detrás de los pétalos.
+    ESTA ES LA SEGUNDA CORRECCIÓN GRANDE.
+
+    El texto NO está dentro del girasol.
+
+    Tiene espacio propio y siempre aparece
+    debajo de la flor.
 */
 
 .hero-text {
-
     position: relative;
 
-    z-index: 20;
-
-    width: 100%;
+    width: min(
+        95%,
+        750px
+    );
 
     text-align: center;
 
-    margin-top: 28px;
+    z-index: 30;
 
+    margin-top: 18px;
+
+    padding-bottom: 20px;
 }
 
 
+/* =====================================================
+   TÍTULO
+===================================================== */
+
 .main-title {
+    position: relative;
 
     font-family:
         "Caveat",
@@ -806,85 +698,90 @@ body {
 
     font-size:
         clamp(
-            50px,
-            8vw,
-            78px
+            48px,
+            7vw,
+            74px
         );
 
-    line-height: .95;
+    font-weight: 700;
+
+    line-height: 1;
 
     color:
         var(--gold-light);
 
+    /*
+        Ahora tiene glow pero sin
+        desaparecer detrás de la flor.
+    */
+
     text-shadow:
 
-        0 0 10px
-        rgba(255,213,74,.4),
+        0 0 8px
+        rgba(255,213,74,.65),
 
-        0 0 25px
-        rgba(255,174,0,.2);
-
+        0 0 22px
+        rgba(255,174,0,.3);
 }
-
 
 .main-title span {
-
-    font-size: .58em;
-
+    font-size: .55em;
 }
 
 
-.subtitle {
+/* =====================================================
+   SUBTÍTULO
+===================================================== */
 
-    margin-top: 12px;
+.subtitle {
+    margin-top: 10px;
 
     color:
-
         rgba(
             255,
             255,
             255,
-            .72
+            .75
         );
 
     font-size: 13px;
 
+    line-height: 1.5;
 }
-
 
 .subtitle b {
-
     color:
         var(--gold);
-
 }
 
 
-/* =========================================
-   BOTÓN TOCAR
-========================================= */
+/* =====================================================
+   BOTÓN
+===================================================== */
 
 .touch-hint {
+    display: inline-flex;
 
-    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 17px;
 
     padding:
+        11px 24px;
 
-        10px 22px;
+    min-width: 180px;
 
     border-radius: 50px;
 
     border:
-
         1px solid
-        rgba(255,213,74,.35);
+        rgba(255,213,74,.45);
 
     background:
-
-        rgba(0,0,0,.25);
+        rgba(30,20,3,.65);
 
     color:
-
         var(--gold);
 
     cursor: pointer;
@@ -895,29 +792,34 @@ body {
 
     font-size: 12px;
 
-    transition: .3s;
+    box-shadow:
+        0 0 18px
+        rgba(255,193,7,.08);
 
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        box-shadow .25s ease;
 }
-
 
 .touch-hint:hover {
+    transform:
+        translateY(-3px);
 
     background:
+        rgba(255,193,7,.12);
 
-        rgba(255,193,7,.1);
-
-    transform:
-        translateY(-2px);
-
+    box-shadow:
+        0 0 25px
+        rgba(255,193,7,.18);
 }
 
 
-/* =========================================
-   PÉTALOS QUE CAEN
-========================================= */
+/* =====================================================
+   PÉTALOS FLOTANTES
+===================================================== */
 
 .falling-petal {
-
     position: fixed;
 
     top: -50px;
@@ -928,148 +830,114 @@ body {
     pointer-events: none;
 
     animation:
-
         falling
         linear
         forwards;
-
 }
-
 
 @keyframes falling {
 
     0% {
-
         transform:
             translateY(-50px)
             rotate(0deg);
 
         opacity: 0;
-
     }
 
     10% {
-
         opacity: 1;
-
     }
 
     100% {
-
         transform:
             translateY(110vh)
             rotate(500deg);
 
         opacity: 0;
-
     }
-
 }
 
 
-/* =========================================
+/* =====================================================
    PALABRAS FLOTANTES
-========================================= */
+===================================================== */
 
 .floating-word {
-
     position: fixed;
 
     bottom: -50px;
 
     color:
-
-        rgba(
-            255,
-            213,
-            74,
-            .9
-        );
+        rgba(255,213,74,.9);
 
     font-family:
         "Caveat",
         cursive;
 
-    font-size: 26px;
+    font-size: 25px;
 
     white-space: nowrap;
 
     animation:
-
         wordFloat
         5s
         ease-out
         forwards;
-
 }
-
 
 @keyframes wordFloat {
 
     0% {
-
         transform:
             translateY(0)
             scale(.8);
 
         opacity: 0;
-
     }
 
     15% {
-
         opacity: 1;
-
     }
 
     100% {
-
         transform:
             translateY(-110vh)
             translateX(var(--move))
             scale(1.15);
 
         opacity: 0;
-
     }
-
 }
 
 
-/* =========================================
+/* =====================================================
    CHISPAS
-========================================= */
+===================================================== */
 
 .spark {
-
     position: fixed;
 
     font-size: 22px;
 
     animation:
-
         sparkAnimation
         .9s
         ease-out
         forwards;
-
 }
-
 
 @keyframes sparkAnimation {
 
     0% {
-
         transform:
             translate(0,0)
             scale(.5);
 
         opacity: 1;
-
     }
 
     100% {
-
         transform:
             translate(
                 var(--x),
@@ -1078,18 +946,15 @@ body {
             scale(1.4);
 
         opacity: 0;
-
     }
-
 }
 
 
-/* =========================================
-   MODAL
-========================================= */
+/* =====================================================
+   MODAL / CARTA
+===================================================== */
 
 .modal {
-
     position: fixed;
 
     inset: 0;
@@ -1113,22 +978,15 @@ body {
 
     transition: .35s;
 
-    z-index: 50;
-
+    z-index: 80;
 }
-
 
 .modal.active {
-
     opacity: 1;
-
     visibility: visible;
-
 }
 
-
 .letter-card {
-
     position: relative;
 
     width:
@@ -1149,12 +1007,10 @@ body {
     border-radius: 28px;
 
     border:
-
         1px solid
         rgba(255,213,74,.35);
 
     background:
-
         linear-gradient(
             145deg,
             #241701,
@@ -1162,7 +1018,6 @@ body {
         );
 
     box-shadow:
-
         0 0 65px
         rgba(255,193,7,.15);
 
@@ -1171,22 +1026,15 @@ body {
         scale(.96);
 
     transition: .35s;
-
 }
 
-
-.modal.active
-.letter-card {
-
+.modal.active .letter-card {
     transform:
         translateY(0)
         scale(1);
-
 }
 
-
 .close-button {
-
     position: absolute;
 
     top: 14px;
@@ -1207,19 +1055,13 @@ body {
     font-size: 24px;
 
     cursor: pointer;
-
 }
-
 
 .letter-flower {
-
     font-size: 55px;
-
 }
 
-
 .letter-card h2 {
-
     font-family:
         "Caveat",
         cursive;
@@ -1228,12 +1070,9 @@ body {
 
     color:
         var(--gold-light);
-
 }
 
-
 .letter-line {
-
     width: 70px;
     height: 2px;
 
@@ -1242,12 +1081,9 @@ body {
 
     background:
         var(--gold);
-
 }
 
-
 .letter-card p {
-
     margin-bottom: 18px;
 
     color: #ddd;
@@ -1255,12 +1091,9 @@ body {
     font-size: 14px;
 
     line-height: 1.8;
-
 }
 
-
 .final-message {
-
     color:
         var(--gold-light) !important;
 
@@ -1270,22 +1103,18 @@ body {
 
     font-size:
         23px !important;
-
 }
 
 
-/* =========================================
-   MÓVIL
-========================================= */
+/* =====================================================
+   RESPONSIVE - CELULAR
+===================================================== */
 
 @media (max-width: 600px) {
 
     .hero {
-
-        height: 88vh;
-
+        padding-top: 70px;
     }
-
 
     .sunflower {
 
@@ -1294,136 +1123,15 @@ body {
 
     }
 
-
     .petal {
 
-        width: 49px;
-        height: 103px;
+        width: 55px;
+        height: 105px;
 
-        margin-left: -24.5px;
-        margin-top: -51.5px;
-
-    }
-
-
-    .p1,
-    .p2,
-    .p3,
-    .p4,
-    .p5,
-    .p6,
-    .p7,
-    .p8,
-    .p9,
-    .p10,
-    .p11,
-    .p12,
-    .p13,
-    .p14,
-    .p15,
-    .p16 {
-
-        transform:
-            rotate(
-                calc(
-                    var(--petal-angle, 0deg)
-                )
-            );
+        margin-left: -27.5px;
+        margin-top: -52.5px;
 
     }
-
-
-    .p1  { transform: rotate(0deg) translateY(-69px); }
-    .p2  { transform: rotate(22.5deg) translateY(-69px); }
-    .p3  { transform: rotate(45deg) translateY(-69px); }
-    .p4  { transform: rotate(67.5deg) translateY(-69px); }
-    .p5  { transform: rotate(90deg) translateY(-69px); }
-    .p6  { transform: rotate(112.5deg) translateY(-69px); }
-    .p7  { transform: rotate(135deg) translateY(-69px); }
-    .p8  { transform: rotate(157.5deg) translateY(-69px); }
-    .p9  { transform: rotate(180deg) translateY(-69px); }
-    .p10 { transform: rotate(202.5deg) translateY(-69px); }
-    .p11 { transform: rotate(225deg) translateY(-69px); }
-    .p12 { transform: rotate(247.5deg) translateY(-69px); }
-    .p13 { transform: rotate(270deg) translateY(-69px); }
-    .p14 { transform: rotate(292.5deg) translateY(-69px); }
-    .p15 { transform: rotate(315deg) translateY(-69px); }
-    .p16 { transform: rotate(337.5deg) translateY(-69px); }
-
-
-    .flower-center {
-
-        width: 92px;
-        height: 92px;
-
-    }
-
-
-    .hero-text {
-
-        margin-top: 15px;
-
-    }
-
-
-    .main-title {
-
-        font-size: 52px;
-
-    }
-
-
-    .subtitle {
-
-        font-size: 11px;
-
-    }
-
-
-    .touch-hint {
-
-        margin-top: 14px;
-
-    }
-
-
-    .top-text {
-
-        top: 20px;
-
-        font-size: 8px;
-
-        letter-spacing: 3px;
-
-    }
-
-}
-
-
-/* =========================================
-   PANTALLAS PEQUEÑAS EN ALTURA
-========================================= */
-
-@media (max-height: 700px) {
-
-    .sunflower {
-
-        width: 220px;
-        height: 220px;
-
-    }
-
-
-    .petal {
-
-        width: 44px;
-        height: 91px;
-
-        margin-left: -22px;
-        margin-top: -45.5px;
-
-    }
-
 
     .p1  { transform: rotate(0deg) translateY(-61px); }
     .p2  { transform: rotate(22.5deg) translateY(-61px); }
@@ -1442,14 +1150,104 @@ body {
     .p15 { transform: rotate(315deg) translateY(-61px); }
     .p16 { transform: rotate(337.5deg) translateY(-61px); }
 
-
     .flower-center {
 
-        width: 82px;
-        height: 82px;
+        width: 91px;
+        height: 91px;
 
     }
 
+    .hero-text {
+
+        margin-top: 13px;
+
+        width: 94%;
+
+    }
+
+    .main-title {
+
+        font-size: 50px;
+
+    }
+
+    .subtitle {
+
+        font-size: 11px;
+
+    }
+
+    .touch-hint {
+
+        margin-top: 13px;
+
+    }
+
+    .top-text {
+
+        top: 18px;
+
+        font-size: 8px;
+
+        letter-spacing: 3px;
+
+    }
+
+}
+
+
+/* =====================================================
+   CELULARES PEQUEÑOS / POCA ALTURA
+===================================================== */
+
+@media (max-height: 700px) {
+
+    .hero {
+
+        padding-top: 60px;
+
+    }
+
+    .sunflower {
+
+        width: 220px;
+        height: 220px;
+
+    }
+
+    .petal {
+
+        width: 47px;
+        height: 91px;
+
+        margin-left: -23.5px;
+        margin-top: -45.5px;
+
+    }
+
+    .p1  { transform: rotate(0deg) translateY(-54px); }
+    .p2  { transform: rotate(22.5deg) translateY(-54px); }
+    .p3  { transform: rotate(45deg) translateY(-54px); }
+    .p4  { transform: rotate(67.5deg) translateY(-54px); }
+    .p5  { transform: rotate(90deg) translateY(-54px); }
+    .p6  { transform: rotate(112.5deg) translateY(-54px); }
+    .p7  { transform: rotate(135deg) translateY(-54px); }
+    .p8  { transform: rotate(157.5deg) translateY(-54px); }
+    .p9  { transform: rotate(180deg) translateY(-54px); }
+    .p10 { transform: rotate(202.5deg) translateY(-54px); }
+    .p11 { transform: rotate(225deg) translateY(-54px); }
+    .p12 { transform: rotate(247.5deg) translateY(-54px); }
+    .p13 { transform: rotate(270deg) translateY(-54px); }
+    .p14 { transform: rotate(292.5deg) translateY(-54px); }
+    .p15 { transform: rotate(315deg) translateY(-54px); }
+    .p16 { transform: rotate(337.5deg) translateY(-54px); }
+
+    .flower-center {
+
+        width: 80px;
+        height: 80px;
+
+    }
 
     .hero-text {
 
@@ -1457,17 +1255,24 @@ body {
 
     }
 
-
     .main-title {
 
-        font-size: 45px;
+        font-size: 43px;
 
     }
 
+    .subtitle {
+
+        font-size: 10px;
+
+    }
 
     .touch-hint {
 
-        margin-top: 10px;
+        margin-top: 9px;
+
+        padding:
+            9px 20px;
 
     }
 
